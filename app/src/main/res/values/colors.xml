@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorCommon">#C1B4AF</color>
+    <color name="colorUncommon">#8C96E1</color>
+    <color name="colorRare">#4b69cd</color>
+    <color name="colorMythical">#8847ff</color>
+    <color name="colorLegendary">#d32ce6</color>
+    <color name="colorAncient">#eb4b4b</color>
+    <color name="colorUnique">#caab05</color>
+</resources>

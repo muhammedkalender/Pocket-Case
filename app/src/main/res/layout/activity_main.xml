@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+
+        android:background="@android:drawable/dialog_holo_light_frame">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
+android:clickable="false"
+            android:scaleType="fitXY"
+            android:src="@mipmap/rulette_down"></ImageView>
+
+        <HorizontalScrollView
+            android:id="@+id/svscroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:clickable="false"
+                android:focusable="false"
+                android:id="@+id/test"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:orientation="horizontal"
+                android:scrollX="140px">
+
+                <include layout="@layout/case_opening_item"></include>
+
+                <include layout="@layout/case_opening_item"></include>
+
+                <include layout="@layout/case_opening_item"></include>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
+android:clickable="false"
+            android:focusable="false"
+            android:scaleType="fitXY"
+            android:src="@mipmap/rulette_up"></ImageView>
+    </RelativeLayout>
+
+</RelativeLayout>
