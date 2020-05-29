@@ -35,6 +35,11 @@ public enum CurrencyEnum {
         String symbol() {
             return "₺";
         }
+
+        @Override
+        public Long awardedVideoAmount() {
+            return 1000L;
+        }
     },
 
     RUB {
@@ -46,6 +51,11 @@ public enum CurrencyEnum {
         @Override
         String symbol() {
             return "₽";
+        }
+
+        @Override
+        public Long awardedVideoAmount() {
+            return 10000L;
         }
     },
 
@@ -97,5 +107,9 @@ public enum CurrencyEnum {
                     code()
             );
         }
+    }
+
+    public Long awardedVideoAmount(){
+        return 100L;
     }
 }
