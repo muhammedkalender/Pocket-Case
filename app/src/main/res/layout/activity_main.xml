@@ -7,7 +7,8 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:id="@+id/rv1"
+        android:layout_width="408dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
@@ -17,7 +18,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="136dp"
-android:clickable="false"
+            android:clickable="false"
             android:scaleType="fitXY"
             android:src="@mipmap/rulette_down"></ImageView>
 
@@ -27,13 +28,13 @@ android:clickable="false"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:clickable="false"
-                android:focusable="false"
                 android:id="@+id/test"
                 android:layout_width="match_parent"
                 android:layout_height="136dp"
+                android:clickable="false"
+                android:focusable="false"
                 android:orientation="horizontal"
-                android:scrollX="140px">
+                android:scrollX="60px">
 
                 <include layout="@layout/case_opening_item"></include>
 
@@ -48,10 +49,9 @@ android:clickable="false"
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="136dp"
-android:clickable="false"
+            android:clickable="false"
             android:focusable="false"
             android:scaleType="fitXY"
             android:src="@mipmap/rulette_up"></ImageView>
     </RelativeLayout>
-
 </RelativeLayout>
