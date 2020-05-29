@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 
 import software.kalender.pocketcase.enums.ColorEnum;
 
-@Entity(tableName = "itemSkin")
+@Entity(tableName = "itemSkins")
 public class ItemSkinModel {
     @ColumnInfo(name = "itemSkinId")
     @PrimaryKey(autoGenerate = true)

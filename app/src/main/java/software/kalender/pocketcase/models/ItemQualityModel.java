@@ -6,7 +6,7 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "itemQuality")
+@Entity(tableName = "itemQualities")
 public class ItemQualityModel {
     @ColumnInfo(name = "itemQualityId")
     @PrimaryKey(autoGenerate = true)

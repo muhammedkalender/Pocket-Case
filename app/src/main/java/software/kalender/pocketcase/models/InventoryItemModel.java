@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity(tableName = "inventoryItem")
+@Entity(tableName = "inventoryItems")
 public class InventoryItemModel {
     @ColumnInfo(name = "inventoryItemId")
     @PrimaryKey(autoGenerate = true)
