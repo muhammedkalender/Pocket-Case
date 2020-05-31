@@ -8,6 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.helpers.MoneyHelper;
 
 @Entity(tableName = "cases")
 public class CaseModel {
@@ -19,9 +20,8 @@ public class CaseModel {
     @ColumnInfo(name = "caseName")
     public String name;
 
-    //TODO
     @ColumnInfo(name = "casePrice")
-    public float price;
+    public MoneyHelper price;
 
     @ColumnInfo(name = "caseKey")
     public KeyModel caseKey;

@@ -25,6 +25,8 @@ import java.util.zip.Inflater;
 import software.kalender.pocketcase.codes.ErrorCode;
 import software.kalender.pocketcase.database.AppDatabase;
 import software.kalender.pocketcase.enums.ColorEnum;
+import software.kalender.pocketcase.enums.CurrencyEnum;
+import software.kalender.pocketcase.helpers.MoneyHelper;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.ItemModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
@@ -77,14 +79,14 @@ public class MainActivity extends AppCompatActivity {
         itemModel.insert();
 
         KeyModel keyModel = new KeyModel();
-        keyModel.price = 10f;
+        keyModel.price =  MoneyHelper.make(CurrencyEnum.USD, 15L);
         keyModel.name = "key mode 1212 1l";
         keyModel.insert();
 
         List<KeyModel> aa = Singleton.db.keyDao().list();
 
         CaseModel caseModel12 = new CaseModel();
-        caseModel12.price = 15f;
+        caseModel12.price = MoneyHelper.make(CurrencyEnum.USD, 10L);
         caseModel12.name = "casre model 12";
         caseModel12.caseKey = keyModel;
         caseModel12.insert();

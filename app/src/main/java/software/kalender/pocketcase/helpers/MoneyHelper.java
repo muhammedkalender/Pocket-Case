@@ -24,6 +24,19 @@ public class MoneyHelper {
     private CurrencyEnum currency = CurrencyEnum.USD;
     private Long balance = 0L;
 
+    public MoneyHelper(){
+
+    }
+
+    public MoneyHelper(CurrencyEnum currency, Long balance) {
+        this.currency = currency;
+        this.balance = balance;
+    }
+
+    public static MoneyHelper make(CurrencyEnum currency, Long balance) {
+        return new MoneyHelper(currency, balance);
+    }
+
     public MoneyHelper sum(Long amount) {
         balance += amount;
 
@@ -53,4 +66,25 @@ public class MoneyHelper {
     //region Formatter functions, Returns various variable types TODO
 
     //endregion
+
+
+    public Long getBalance() {
+        return balance;
+    }
+
+    public MoneyHelper setBalance(Long balance) {
+        this.balance = balance;
+
+        return this;
+    }
+
+    public CurrencyEnum getCurrency() {
+        return this.currency;
+    }
+
+    public MoneyHelper setCurrency(CurrencyEnum currency) {
+        this.currency = currency;
+
+        return this;
+    }
 }

@@ -7,6 +7,8 @@ import java.util.Date;
 
 import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.enums.ColorEnum;
+import software.kalender.pocketcase.enums.CurrencyEnum;
+import software.kalender.pocketcase.helpers.MoneyHelper;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.InventoryItemModel;
 import software.kalender.pocketcase.models.ItemModel;
@@ -34,8 +36,8 @@ public class Converters {
     //region Color Enum
 
     @TypeConverter
-    public static ColorEnum fromInteger(int value) {
-        return ColorEnum.ANCIENT; //TODO
+    public static ColorEnum colorFromIndex(int index) {
+        return ColorEnum.values()[index];
     }
 
     @TypeConverter
@@ -104,12 +106,12 @@ public class Converters {
     //region Item Skin
 
     @TypeConverter
-    public static long itemSkinToId(ItemSkinModel itemSkinModel){
+    public static long itemSkinToId(ItemSkinModel itemSkinModel) {
         return itemSkinModel == null ? 0 : itemSkinModel.id;
     }
 
     @TypeConverter
-    public static ItemSkinModel itemSkinFromId(long id){
+    public static ItemSkinModel itemSkinFromId(long id) {
         return Singleton.db.itemSkinDao().get(id);
     }
 
@@ -118,12 +120,12 @@ public class Converters {
     //region Item Type
 
     @TypeConverter
-    public static long itemTypeToId(ItemTypeModel Model){
+    public static long itemTypeToId(ItemTypeModel Model) {
         return Model == null ? 0 : Model.id;
     }
 
     @TypeConverter
-    public static ItemTypeModel itemTypeFromId(long id){
+    public static ItemTypeModel itemTypeFromId(long id) {
         return Singleton.db.itemTypeDao().get(id);
     }
 
@@ -139,6 +141,34 @@ public class Converters {
     @TypeConverter
     public static long keyToId(KeyModel keyModel) {
         return keyModel == null ? 0 : keyModel.id;
+    }
+
+    //endregion
+
+    //region Money Helper
+
+    @TypeConverter
+    public static String moneyToString(MoneyHelper moneyHelper) {
+        if (moneyHelper == null || moneyHelper.getCurrency() == null) {
+            return "";
+        }
+
+        return moneyHelper.getCurrency().ordinal() + "|" + moneyHelper.getBalance();
+    }
+
+    @TypeConverter
+    public static MoneyHelper moneyFromString(String moneyString) {
+        if (moneyString.equals("")) {
+            return MoneyHelper.make(CurrencyEnum.USD, 0L);
+        }
+
+        CurrencyEnum currency = CurrencyEnum.values()[Integer.parseInt(String.valueOf(moneyString.charAt(0)))];
+
+        MoneyHelper money = new MoneyHelper();
+        money.setCurrency(currency);
+        money.setBalance(Long.valueOf(moneyString.substring(2)));
+
+        return money;
     }
 
     //endregion

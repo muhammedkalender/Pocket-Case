@@ -8,6 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.helpers.MoneyHelper;
 
 @Entity(tableName = "itemQualities")
 public class ItemQualityModel {
@@ -21,7 +22,7 @@ public class ItemQualityModel {
 
     @NonNull
     @ColumnInfo(name = "itemQualityPrice")
-    public float price; //TODO
+    public MoneyHelper price;
 
     @ColumnInfo(name = "itemQualityStatTrak")
     public boolean statTrak = false;
