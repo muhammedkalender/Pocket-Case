@@ -24,7 +24,12 @@ import java.util.zip.Inflater;
 
 import software.kalender.pocketcase.codes.ErrorCode;
 import software.kalender.pocketcase.database.AppDatabase;
+import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.models.CaseModel;
+import software.kalender.pocketcase.models.ItemModel;
+import software.kalender.pocketcase.models.ItemSkinModel;
+import software.kalender.pocketcase.models.ItemTypeModel;
+import software.kalender.pocketcase.models.KeyModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+        Singleton.db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "pocket-case-csgo")
                 .allowMainThreadQueries()
                 .build();
@@ -42,14 +47,14 @@ public class MainActivity extends AppCompatActivity {
 
         CaseModel caseModel1 = new CaseModel();
         caseModel1.name = "test 1";
-        db.caseDao().insert(caseModel1);
+        caseModel1.insert();
         // room.caseDAO.insert(caseModel1);
 
         CaseModel caseModel2 = new CaseModel();
         caseModel2.name = "test 2";
-        db.caseDao().insert(caseModel2);
+        caseModel2.insert();
         // room.caseDAO.insert(caseModel1);
-        List<CaseModel> caseModelList = db.caseDao().list();
+        List<CaseModel> caseModelList = Singleton.db.caseDao().list();
         Log.e("aaaa", caseModelList.size() + "--");
 
         final HorizontalScrollView scrollView = findViewById(R.id.svscroll);
@@ -61,6 +66,39 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 36; i++) {
             linearLayout.addView(inflater.inflate(R.layout.case_opening_item, null, false));
         }
+
+        ItemTypeModel itemTypeModel = new ItemTypeModel();
+        itemTypeModel.name = "item type";
+        itemTypeModel.insert();
+
+        ItemModel itemModel = new ItemModel();
+        itemModel.name = "item type model";
+        itemModel.type = itemTypeModel;
+        itemModel.insert();
+
+        KeyModel keyModel = new KeyModel();
+        keyModel.price = 10f;
+        keyModel.name = "key mode 1212 1l";
+        keyModel.insert();
+
+        List<KeyModel> aa = Singleton.db.keyDao().list();
+
+        CaseModel caseModel12 = new CaseModel();
+        caseModel12.price = 15f;
+        caseModel12.name = "casre model 12";
+        caseModel12.caseKey = keyModel;
+        caseModel12.insert();
+
+        Log.e("asdas", caseModel12.id + "---");
+        List<CaseModel> a = Singleton.db.caseDao().list();
+
+        ItemSkinModel itemSkinModel = new ItemSkinModel();
+        itemSkinModel.color = ColorEnum.LEGENDARY;
+        itemSkinModel.name = "item skin model";
+        itemSkinModel.item = itemModel;
+        itemSkinModel.skinCase = caseModel12;
+
+        itemSkinModel.insert();
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                                 valueAnimator.setDuration(6000);
                             } else if (valueAnimator.getAnimatedFraction() < 0.6f && valueAnimator.getDuration() == 6000) {
                                 valueAnimator.setDuration(7000);
-                            }else if (valueAnimator.getAnimatedFraction() < 0.6f && valueAnimator.getDuration() == 6000) {
+                            } else if (valueAnimator.getAnimatedFraction() < 0.6f && valueAnimator.getDuration() == 6000) {
                                 valueAnimator.setDuration(8000);
                             } else if (valueAnimator.getAnimatedFraction() < 0.7f && valueAnimator.getDuration() == 8000) {
                                 valueAnimator.setDuration(9000);
@@ -104,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
         for (CaseModel caseModel : caseModelList) {
             Log.e("aaa", caseModel.name);
         }
+
+        List<ItemSkinModel> itemSkinModels = Singleton.db.itemSkinDao().list();
 
         // Log.e("ada", room.caseDAO.get(1).name);
     }

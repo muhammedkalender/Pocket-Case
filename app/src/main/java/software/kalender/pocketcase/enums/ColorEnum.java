@@ -46,6 +46,8 @@ public enum ColorEnum {
         }
     };
 
-
     abstract int color();
+
+    ColorEnum() {
+    }
 }

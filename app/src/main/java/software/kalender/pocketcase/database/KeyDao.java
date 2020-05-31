@@ -5,12 +5,13 @@ import androidx.room.Query;
 
 import java.util.List;
 
+import software.kalender.pocketcase.interfaces.DaoInterface;
 import software.kalender.pocketcase.models.KeyModel;
 
 @Dao
-public interface KeyDao {
+public interface KeyDao extends DaoInterface<KeyModel> {
     @Query("SELECT * FROM 'keys' WHERE keyId = :id")
-    public KeyModel get(int id);
+    public KeyModel get(long id);
 
     @Query("SELECT * FROM 'keys'")
     public List<KeyModel> list();

@@ -2,20 +2,30 @@ package software.kalender.pocketcase.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import software.kalender.pocketcase.Singleton;
 
 @Entity(tableName = "items")
 public class ItemModel {
     @ColumnInfo(name = "itemId")
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public long id;
 
     @NonNull
     @ColumnInfo(name = "itemName")
     public String name;
 
-    @NonNull
-    @ColumnInfo(name = "itemType")
+    @Embedded
     public ItemTypeModel type;
+
+    @Ignore
+    public ItemModel insert() {
+        this.id = Singleton.db.itemDao().insert(this);
+
+        return this;
+    }
 }

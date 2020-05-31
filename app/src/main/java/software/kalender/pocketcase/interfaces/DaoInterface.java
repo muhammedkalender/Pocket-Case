@@ -6,7 +6,7 @@ import androidx.room.Update;
 
 public interface DaoInterface<T> {
     @Insert
-    public void insert(T model);
+    public long insert(T model);
 
     @Update
     public void update(T model);

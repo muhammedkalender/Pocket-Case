@@ -11,7 +11,7 @@ import software.kalender.pocketcase.models.CaseModel;
 @Dao
 public interface CaseDao extends DaoInterface<CaseModel> {
     @Query("SELECT * FROM 'cases' WHERE caseId = :id")
-    public CaseModel get(int id);
+    public CaseModel get(long id);
 
     @Query("SELECT * FROM 'cases'")
     public List<CaseModel> list();
