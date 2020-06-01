@@ -27,6 +27,7 @@ import software.kalender.pocketcase.database.AppDatabase;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.helpers.MoneyHelper;
+import software.kalender.pocketcase.models.CaseChanceModel;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.ItemModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
@@ -47,17 +48,17 @@ public class MainActivity extends AppCompatActivity {
 
 //        room.caseDAO.get()
 
-        CaseModel caseModel1 = new CaseModel();
-        caseModel1.name = "test 1";
-        caseModel1.insert();
-        // room.caseDAO.insert(caseModel1);
-
-        CaseModel caseModel2 = new CaseModel();
-        caseModel2.name = "test 2";
-        caseModel2.insert();
-        // room.caseDAO.insert(caseModel1);
-        List<CaseModel> caseModelList = Singleton.db.caseDao().list();
-        Log.e("aaaa", caseModelList.size() + "--");
+//        CaseModel caseModel1 = new CaseModel();
+//        caseModel1.name = "test 1";
+//        caseModel1.insert();
+//        // room.caseDAO.insert(caseModel1);
+//
+//        CaseModel caseModel2 = new CaseModel();
+//        caseModel2.name = "test 2";
+//        caseModel2.insert();
+//        // room.caseDAO.insert(caseModel1);
+//        List<CaseModel> caseModelList = Singleton.db.caseDao().list();
+//        Log.e("aaaa", caseModelList.size() + "--");
 
         final HorizontalScrollView scrollView = findViewById(R.id.svscroll);
         final LinearLayout linearLayout = findViewById(R.id.test);
@@ -66,7 +67,16 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
 
         for (int i = 0; i < 36; i++) {
-            linearLayout.addView(inflater.inflate(R.layout.case_opening_item, null, false));
+            CaseChanceModel x = new CaseChanceModel();
+
+            ColorEnum colorEnum = x.random();
+
+            View v = inflater.inflate(R.layout.case_opening_item, null, false);
+
+            v.findViewById(R.id.nameSkin).setBackgroundColor(colorEnum.color());
+            v.findViewById(R.id.nameItem).setBackgroundColor(colorEnum.color());
+
+            linearLayout.addView(v);
         }
 
         ItemTypeModel itemTypeModel = new ItemTypeModel();
@@ -85,10 +95,17 @@ public class MainActivity extends AppCompatActivity {
 
         List<KeyModel> aa = Singleton.db.keyDao().list();
 
+        CaseChanceModel caseChanceModel = new CaseChanceModel();
+
+        int x = caseChanceModel.getChance(ColorEnum.LEGENDARY);
+
+        ColorEnum ch =  caseChanceModel.random();
+
         CaseModel caseModel12 = new CaseModel();
         caseModel12.price = MoneyHelper.make(CurrencyEnum.USD, 10L);
         caseModel12.name = "casre model 12";
         caseModel12.caseKey = keyModel;
+        caseModel12.caseChance = caseChanceModel;
         caseModel12.insert();
 
         Log.e("asdas", caseModel12.id + "---");
@@ -140,10 +157,10 @@ public class MainActivity extends AppCompatActivity {
                 a.start();
             }
         });
-
-        for (CaseModel caseModel : caseModelList) {
-            Log.e("aaa", caseModel.name);
-        }
+//
+//        for (CaseModel caseModel : caseModelList) {
+//            Log.e("aaa", caseModel.name);
+//        }
 
         List<ItemSkinModel> itemSkinModels = Singleton.db.itemSkinDao().list();
 

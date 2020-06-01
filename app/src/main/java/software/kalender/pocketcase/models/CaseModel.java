@@ -7,6 +7,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
 import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.helpers.MoneyHelper;
 
@@ -25,6 +27,10 @@ public class CaseModel {
 
     @ColumnInfo(name = "caseKey")
     public KeyModel caseKey;
+
+    @NonNull
+    @ColumnInfo(name = "caseChance")
+    public CaseChanceModel caseChance;
 
     @Ignore
     public CaseModel insert() {

@@ -2,51 +2,84 @@ package software.kalender.pocketcase.enums;
 
 import android.graphics.Color;
 
+/*
+    Chance percent in 10.000
+    Default chances start from Rare ( Blue )
+ */
 public enum ColorEnum {
     COMMON {
         @Override
-        int color() {
+        public int color() {
             return Color.parseColor("#C1B4AF");
 
         }
     }, UNCOMMON {
         @Override
-        int color() {
+        public int color() {
             return Color.parseColor("#8C96E1");
 
         }
     }, RARE {
         @Override
-        int color() {
+        public int color() {
             return Color.parseColor("#4b69cd");
+        }
+
+        @Override
+        public int chance(){
+            return 5000;
         }
     },
     MYTHICAL {
         @Override
-        int color() {
+        public int color() {
             return Color.parseColor("#8847ff");
+        }
+
+        @Override
+        public int chance() {
+            return 4000; //todo
         }
     },
     LEGENDARY {
         @Override
-        int color() {
+        public int color() {
             return Color.parseColor("#d32ce6");
+        }
+
+        @Override
+        public int chance() {
+            return 850; //TODO
         }
     },
     ANCIENT {
         @Override
-        int color() {
+        public int color() {
             return Color.parseColor("#eb4b4b");
+        }
+
+        @Override
+        public int chance() {
+            return 100; //TODO
         }
     },
     UNIQUE {
         @Override
-        int color() {
+        public int color() {
             return Color.parseColor("#caab05");
+        }
+
+        @Override
+        public int chance() {
+            return 50; //TODO
         }
     };
 
-    abstract int color();
+    abstract public int color();
+
+    public int chance() {
+        return 0;
+    }
 
     ColorEnum() {
     }

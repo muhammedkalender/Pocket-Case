@@ -1,5 +1,6 @@
 package software.kalender.pocketcase.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.TypeConverter;
 
 import java.security.Key;
@@ -9,6 +10,7 @@ import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.helpers.MoneyHelper;
+import software.kalender.pocketcase.models.CaseChanceModel;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.InventoryItemModel;
 import software.kalender.pocketcase.models.ItemModel;
@@ -169,6 +171,20 @@ public class Converters {
         money.setBalance(Long.valueOf(moneyString.substring(2)));
 
         return money;
+    }
+
+    //endregion
+
+    //region Case Chance Model
+
+    @TypeConverter
+    public static String caseChanceToString(@NonNull CaseChanceModel caseChanceModel) {
+        return caseChanceModel.toQuery();
+    }
+
+    @TypeConverter
+    public static CaseChanceModel caseChanceFromString(String query) {
+        return new CaseChanceModel(query);
     }
 
     //endregion
