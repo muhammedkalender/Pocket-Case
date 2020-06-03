@@ -7,6 +7,7 @@ import java.security.Key;
 import java.util.Date;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.helpers.MoneyHelper;
@@ -185,6 +186,20 @@ public class Converters {
     @TypeConverter
     public static CaseChanceModel caseChanceFromString(String query) {
         return new CaseChanceModel(query);
+    }
+
+    //endregion
+
+    //region Case Type
+
+    @TypeConverter
+    public static int caseTypeToIndex(CaseTypeEnum caseTypeEnum) {
+        return caseTypeEnum.ordinal();
+    }
+
+    @TypeConverter
+    public static CaseTypeEnum caseTypeFromIndex(int index) {
+        return CaseTypeEnum.values()[index];
     }
 
     //endregion

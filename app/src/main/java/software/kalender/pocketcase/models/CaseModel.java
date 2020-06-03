@@ -2,14 +2,12 @@ package software.kalender.pocketcase.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.List;
-
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.helpers.MoneyHelper;
 
 @Entity(tableName = "cases")
@@ -31,6 +29,10 @@ public class CaseModel {
     @NonNull
     @ColumnInfo(name = "caseChance")
     public CaseChanceModel caseChance;
+
+    @NonNull
+    @ColumnInfo(name = "caseType")
+    public CaseTypeEnum caseType;
 
     @Ignore
     public CaseModel insert() {

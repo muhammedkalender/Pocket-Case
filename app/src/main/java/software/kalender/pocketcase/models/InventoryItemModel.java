@@ -1,6 +1,5 @@
 package software.kalender.pocketcase.models;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;

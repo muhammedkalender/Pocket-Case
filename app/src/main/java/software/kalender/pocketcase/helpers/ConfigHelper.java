@@ -34,7 +34,7 @@ public class ConfigHelper {
 
             return sharedPreferences.getInt(key, def);
         } catch (Exception e) {
-            Singleton.log.error(ErrorCode.ERROR_CONFIG_GET_INTEGER, e);
+            Singleton.log.error(ErrorCode.CONFIG_GET_INTEGER, e);
 
             return def;
         }
@@ -49,7 +49,7 @@ public class ConfigHelper {
 
             return editor.commit();
         } catch (Exception e) {
-            Singleton.log.error(ErrorCode.ERROR_CONFIG_SET_INTEGER, e);
+            Singleton.log.error(ErrorCode.CONFIG_SET_INTEGER, e);
 
             return false;
         }
@@ -69,7 +69,7 @@ public class ConfigHelper {
 
             return sharedPreferences.getString(key, def);
         } catch (Exception e) {
-            Singleton.log.error(ErrorCode.ERROR_CONFIG_GET_INTEGER, e);
+            Singleton.log.error(ErrorCode.CONFIG_GET_STRING, e);
 
             return def;
         }
@@ -84,7 +84,7 @@ public class ConfigHelper {
 
             return editor.commit();
         } catch (Exception e) {
-            Singleton.log.error(ErrorCode.ERROR_CONFIG_SET_INTEGER, e);
+            Singleton.log.error(ErrorCode.CONFIG_SET_STRING, e);
 
             return false;
         }
@@ -104,7 +104,7 @@ public class ConfigHelper {
 
             return sharedPreferences.getFloat(key, def);
         } catch (Exception e) {
-            Singleton.log.error(ErrorCode.ERROR_CONFIG_GET_INTEGER, e);
+            Singleton.log.error(ErrorCode.CONFIG_GET_FLOAT, e);
 
             return def;
         }
@@ -119,7 +119,7 @@ public class ConfigHelper {
 
             return editor.commit();
         } catch (Exception e) {
-            Singleton.log.error(ErrorCode.ERROR_CONFIG_SET_INTEGER, e);
+            Singleton.log.error(ErrorCode.CONFIG_SET_FLOAT, e);
 
             return false;
         }
