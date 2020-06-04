@@ -1,6 +1,7 @@
 package software.kalender.pocketcase.helpers;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import software.kalender.pocketcase.Singleton;
@@ -16,13 +17,22 @@ public class ResourceHelper {
 
     public String getString(int resId, String... args){
         try{
-            Log.e("asda", "geldi" + resId);
-            Log.e("örn", context.getString(resId));
             return context.getString(resId, (Object[]) args);
         }catch (Exception e){
             Singleton.log.error(ErrorCode.RESOURCE_GET_STRING, e);
 
             return AppConstant.defaultString;
+        }
+    }
+
+    public Drawable getDrawable(int resId){
+        try{
+            return context.getDrawable(resId);
+        }catch (Exception e){
+            //TODO
+            Singleton.log.error(ErrorCode.RESOURCE_GET_DRAWABLE, e);
+
+            return null;
         }
     }
 }

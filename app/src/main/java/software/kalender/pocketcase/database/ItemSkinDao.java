@@ -10,9 +10,12 @@ import software.kalender.pocketcase.models.ItemSkinModel;
 
 @Dao
 public interface ItemSkinDao extends DaoInterface<ItemSkinModel> {
-    @Query("SELECT * FROM 'itemSkins' WHERE itemSkinId = :id")
+    @Query("SELECT * FROM itemSkins WHERE itemSkinId = :id")
     public ItemSkinModel get(long id);
 
-    @Query("SELECT * FROM 'itemSkins'")
+    @Query("SELECT * FROM itemSkins")
     public List<ItemSkinModel> list();
+
+    @Query("SELECT * FROM itemskins WHERE caseId = :caseId")
+    public List<ItemSkinModel> listFromCaseId(long caseId);
 }

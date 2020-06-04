@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="64dp"
+    android:padding="0px"
+    android:layout_height="68dp">
+
+    <LinearLayout
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginVertical="4dp"
+        android:id="@+id/containerItem"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageItem"
+            android:layout_width="60dp"
+            android:layout_height="45dp"
+            android:background="@mipmap/weapon_back"
+            android:padding="2dp"
+            android:scaleType="fitXY"
+            android:elevation="3dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:paddingBottom="2dp"
+            android:transformPivotY="3dp"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:src="@mipmap/test" />
+
+        <TextView
+            android:id="@+id/nameItem"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/unique"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="2dp"
+            android:paddingTop="1dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:text="MP9"
+            android:textColor="#FFF"
+            android:textSize="6sp"
+            android:textStyle="bold"
+            android:transformPivotY="3dp" />
+
+        <TextView
+
+            android:id="@+id/nameSkin"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/unique"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="2dp"
+            android:paddingBottom="2dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:text="Dart"
+            android:textColor="#FFF"
+            android:textSize="4sp"
+            android:transformPivotY="3dp" />
+
+    </LinearLayout>
+</RelativeLayout>

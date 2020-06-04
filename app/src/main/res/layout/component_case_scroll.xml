@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/componentCaseScrollRootView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/componentCaseSelectScrollParent"
+            android:layout_width="408dp"
+            android:layout_height="152dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+
+            android:background="@android:drawable/dialog_holo_light_frame">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:clickable="false"
+                android:scaleType="fitXY"
+                android:src="@mipmap/rulette_down"></ImageView>
+
+            <HorizontalScrollView
+                android:id="@+id/componentCaseScrollScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/componentCaseScrollScrollList"
+                    android:layout_width="match_parent"
+                    android:layout_height="136dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:orientation="horizontal"
+                    android:scrollX="60px">
+
+                    <include layout="@layout/case_opening_item"></include>
+
+                    <include layout="@layout/case_opening_item"></include>
+
+                    <include layout="@layout/case_opening_item"></include>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:scaleType="fitXY"
+                android:src="@mipmap/rulette_up"></ImageView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="408dp"
+            android:layout_height="152dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/parentSelectCase"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/imageSelectCase"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp" />
+
+                <TextView
+                    android:id="@+id/nameSelectCase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#000"
+                    android:gravity="center"
+                    android:text="Operation Breakdown 2 Case"
+                    android:textColor="#FFF"
+                    android:textSize="8sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/priceSelectCase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#000"
+                    android:gravity="center"
+                    android:text="256465.25 $"
+                    android:textColor="#FFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/parentSelectKey"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/imageSelectKey"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp" />
+
+                <TextView
+                    android:id="@+id/nameSelectKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#000"
+                    android:gravity="center"
+                    android:text="Operation Breakdown 2 Case Key"
+                    android:textColor="#FFF"
+                    android:textSize="8sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/priceSelectKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#000"
+                    android:gravity="center"
+                    android:text="256465.25 $"
+                    android:textColor="#FFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -6,25 +6,29 @@
     android:padding="0px">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/componentScrollTab"
+        android:id="@+id/componentCaseSelectTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <ScrollView
-        android:id="@+id/componentScrollCaseSelect"
+        android:id="@+id/componentCaseSelectScroll"
         android:layout_width="match_parent"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_height="400dp"
         android:background="#000">
 
         <RelativeLayout
-            android:id="@+id/componentScrollRootView"
+            android:id="@+id/componentCaseSelectScrollRootView"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:gravity="center">
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:padding="8dp">
 
             <GridLayout
-                android:id="@+id/componentScrollGrid"
-                android:layout_width="wrap_content"
+                android:id="@+id/componentCaseSelectScrollGrid"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:columnCount="4">

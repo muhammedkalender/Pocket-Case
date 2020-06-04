@@ -87,4 +87,8 @@ public class MoneyHelper {
 
         return this;
     }
+
+    public String getFormattedText(){
+        return this.currency.formatWithSymbol(this.balance);
+    }
 }

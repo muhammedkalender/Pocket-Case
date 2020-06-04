@@ -12,8 +12,8 @@ import software.kalender.pocketcase.R;
 import software.kalender.pocketcase.abstracts.ViewAbstract;
 import software.kalender.pocketcase.models.CaseModel;
 
-public class CaseTabItemView extends ViewAbstract<CaseModel> {
-    public CaseTabItemView(@NonNull Context context, CaseModel model) {
+public class CaseSelectItemCaseView extends ViewAbstract<CaseModel> {
+    public CaseSelectItemCaseView(@NonNull Context context, @NonNull CaseModel model) {
         super(context, model);
     }
 
@@ -22,7 +22,7 @@ public class CaseTabItemView extends ViewAbstract<CaseModel> {
         //TODO
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
-        view = inflater.inflate(R.layout.case_tab_item, null);
+        view = inflater.inflate(R.layout.case_select_item, null);
 
         //TODO IMAGE, GLIDE VS.. view.findViewById(R.id.imageCase)
 
