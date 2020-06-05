@@ -12,7 +12,7 @@ import software.kalender.pocketcase.helpers.MoneyHelper;
 public class KeyModel {
     @ColumnInfo(name = "keyId")
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public long keyId;
 
     @ColumnInfo(name = "keyName")
     public String name;
@@ -22,7 +22,7 @@ public class KeyModel {
 
     @Ignore
     public KeyModel insert() {
-        this.id = Singleton.db.keyDao().insert(this);
+        this.keyId = Singleton.db.keyDao().insert(this);
 
         return this;
     }

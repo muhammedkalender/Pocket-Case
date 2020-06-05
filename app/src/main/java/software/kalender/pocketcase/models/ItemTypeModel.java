@@ -12,7 +12,7 @@ import software.kalender.pocketcase.Singleton;
 public class ItemTypeModel {
     @ColumnInfo(name = "itemTypeId")
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public long itemTypeId;
 
     @NonNull
     @ColumnInfo(name = "itemTypeName")
@@ -20,7 +20,7 @@ public class ItemTypeModel {
 
     @Ignore
     public ItemTypeModel insert() {
-        this.id = Singleton.db.itemTypeDao().insert(this);
+        this.itemTypeId = Singleton.db.itemTypeDao().insert(this);
 
         return this;
     }

@@ -14,7 +14,7 @@ import software.kalender.pocketcase.helpers.MoneyHelper;
 public class ItemQualityModel {
     @ColumnInfo(name = "itemQualityId")
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public long itemQualityId;
 
     @NonNull
     @ColumnInfo(name = "itemQualityName")
@@ -33,7 +33,7 @@ public class ItemQualityModel {
 
     @Ignore
     public ItemQualityModel insert() {
-        this.id = Singleton.db.itemQualityDao().insert(this);
+        this.itemQualityId = Singleton.db.itemQualityDao().insert(this);
 
         return this;
     }

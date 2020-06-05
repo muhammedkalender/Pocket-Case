@@ -14,7 +14,7 @@ import software.kalender.pocketcase.enums.ColorEnum;
 public class ItemSkinModel {
     @ColumnInfo(name = "itemSkinId")
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public long itemSkinId;
 
     @NonNull
     @ColumnInfo(name = "itemSkinName")
@@ -34,7 +34,7 @@ public class ItemSkinModel {
 
     @Ignore
     public ItemSkinModel insert() {
-        this.id = Singleton.db.itemSkinDao().insert(this);
+        this.itemSkinId = Singleton.db.itemSkinDao().insert(this);
 
         return this;
     }

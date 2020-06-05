@@ -14,7 +14,7 @@ import software.kalender.pocketcase.helpers.MoneyHelper;
 public class CaseModel {
     @ColumnInfo(name = "caseId")
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public long caseId;
 
     @NonNull
     @ColumnInfo(name = "caseName")
@@ -36,7 +36,7 @@ public class CaseModel {
 
     @Ignore
     public CaseModel insert() {
-        this.id = Singleton.db.caseDao().insert(this);
+        this.caseId = Singleton.db.caseDao().insert(this);
 
         return this;
     }

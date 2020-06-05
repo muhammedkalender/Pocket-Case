@@ -14,7 +14,7 @@ import software.kalender.pocketcase.Singleton;
 public class InventoryItemModel {
     @ColumnInfo(name = "inventoryItemId")
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public long inventoryItemId;
 
     @Embedded
     public ItemQualityModel quality;
@@ -30,7 +30,7 @@ public class InventoryItemModel {
 
     @Ignore
     public InventoryItemModel insert() {
-        this.id = Singleton.db.inventoryItemDao().insert(this);
+        this.inventoryItemId = Singleton.db.inventoryItemDao().insert(this);
 
         return this;
     }

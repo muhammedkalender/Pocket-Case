@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         itemQualityModel.insert();
 
         for (int i = 0; i < 36; i++) {
-            ItemSkinModel itemSkinModel22 = Singleton.db.caseDao().getRandomItemFromColor(caseModel.id, ColorEnum.MYTHICAL);
+            ItemSkinModel itemSkinModel22 = Singleton.db.caseDao().getRandomItemFromColor(caseModel.caseId, ColorEnum.MYTHICAL);
 
             Log.e("ada", "aaa");
         }
