@@ -24,4 +24,7 @@ public interface CaseDao extends DaoInterface<CaseModel> {
 
     @Query("SELECT * FROM itemSkins WHERE caseId = :caseId AND itemSkinColor = :colorEnum ORDER BY RANDOM() LIMIT 1")
     public ItemSkinModel getRandomItemFromColor(Long caseId, ColorEnum colorEnum);
+
+    @Query("SELECT * FROM cases WHERE caseType = :caseType LIMIT 1")
+    public CaseModel getLastCaseFromType(CaseTypeEnum caseType);
 }

@@ -13,13 +13,14 @@ import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.abstracts.GameAbstract;
 import software.kalender.pocketcase.components.CaseOpeningScrollComponent;
 import software.kalender.pocketcase.components.CaseSelectingComponent;
-import software.kalender.pocketcase.interfaces.GameInterface;
-import software.kalender.pocketcase.models.CaseChanceModel;
+import software.kalender.pocketcase.enums.CaseTypeEnum;
+import software.kalender.pocketcase.helpers.ViewHelper;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
 
 public class CaseOpeningGame extends GameAbstract {
     //TODO
+    private CaseModel currentCase;
 
     public CaseOpeningGame(@NonNull Context context) {
         super(context);
@@ -41,38 +42,41 @@ public class CaseOpeningGame extends GameAbstract {
         final CaseOpeningScrollComponent caseOpeningScrollComponent = new CaseOpeningScrollComponent(this.context, view.findViewById(R.id.areaCaseScroll));
         caseOpeningScrollComponent.generateView();
 
+        currentCase = Singleton.db.caseDao().getLastCaseFromType(CaseTypeEnum.values()[0]);
+
         caseSelectingComponent.setOnCaseChanged(new Runnable() {
             @Override
             public void run() {
+                currentCase = caseSelectingComponent.getSelectedCase();
                 caseOpeningScrollComponent.loadCaseDetail(caseSelectingComponent.getSelectedCase());
             }
         });
 
         //TODO
-        final CaseModel caseModel = Singleton.db.caseDao().get(8L);
 
-        view.findViewById(R.id.componentCaseScrollButton).setOnClickListener(new View.OnClickListener() {
+        final Button caseScrollButton = view.findViewById(R.id.componentCaseScrollButton);
+
+        caseScrollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 ItemSkinModel[] itemSkinModels = new ItemSkinModel[36];
 
                 for (int i = 0; i < 36; i++) {
-                    itemSkinModels[i] = Singleton.db.caseDao().getRandomItemFromColor(caseModel.id, caseModel.caseChance.random());
+                    itemSkinModels[i] = Singleton.db.caseDao().getRandomItemFromColor(currentCase.caseId, currentCase.caseChance.random());
                 }
 
+                final ViewHelper viewHelper = new ViewHelper();
 
                 caseOpeningScrollComponent.setOnStart(new Runnable() {
                     @Override
                     public void run() {
-                        ((Button)view.findViewById(R.id.componentCaseScrollButton)).setText("KASA AÇILIYOR ...");
-                        Log.e("asda", "başladı");
+                        viewHelper.makeDisable(caseScrollButton, R.string.case_opening_button_start);
                     }
                 });
                 caseOpeningScrollComponent.setOnFinish(new Runnable() {
                     @Override
                     public void run() {
-                        ((Button)view.findViewById(R.id.componentCaseScrollButton)).setText("KASA AÇ");
-                        Log.e("aaaa", "bitti");
+                        viewHelper.makeEnable(caseScrollButton, R.string.case_opening_button_finish);
                     }
                 });
                 caseOpeningScrollComponent.addToScroll(itemSkinModels);

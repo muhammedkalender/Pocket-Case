@@ -117,7 +117,7 @@ public class CaseSelectingComponent extends ComponentAbstract {
         for (CaseModel caseModel : caseModels) {
             CaseSelectItemCaseView caseSelectItemView = new CaseSelectItemCaseView(this.context, caseModel);
 
-            gridLayout.addView(caseSelectItemView.getViewWithClick(clickListenerCase, caseModel.id));
+            gridLayout.addView(caseSelectItemView.getViewWithClick(clickListenerCase, caseModel.caseId));
         }
 
         return true; //TODO
@@ -131,7 +131,7 @@ public class CaseSelectingComponent extends ComponentAbstract {
         //todo
         gridLayout.removeAllViews();
 
-        List<ItemSkinModel> itemSkinModels = Singleton.db.itemSkinDao().listFromCaseId(caseModel.id);
+        List<ItemSkinModel> itemSkinModels = Singleton.db.itemSkinDao().listFromCaseId(caseModel.caseId);
 
         for(ItemSkinModel itemSkinModel : itemSkinModels){
             CaseSelectItemSkinView caseSelectItemSkinView = new CaseSelectItemSkinView(this.context, itemSkinModel);

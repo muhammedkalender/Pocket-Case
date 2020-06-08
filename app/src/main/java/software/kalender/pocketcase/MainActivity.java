@@ -18,6 +18,7 @@ import java.util.List;
 
 import software.kalender.pocketcase.components.CaseSelectingComponent;
 import software.kalender.pocketcase.database.AppDatabase;
+import software.kalender.pocketcase.enums.CaseSpecialEnum;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
@@ -70,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
         caseModel.caseKey = keyModel;
         caseModel.caseChance = new CaseChanceModel();
         caseModel.price = MoneyHelper.make(CurrencyEnum.USD, 20L);
-        caseModel.caseType = CaseTypeEnum.WEAPON_CASE;
+        caseModel.caseType = CaseTypeEnum.NULL_CASE;
+        caseModel.caseSpecial = CaseSpecialEnum.KNIFE;
         caseModel.insert();
 
         ItemSkinModel itemSkinModel222 = new ItemSkinModel();
@@ -139,12 +141,12 @@ public class MainActivity extends AppCompatActivity {
 
         CaseOpeningGame caseOpeningGame = new CaseOpeningGame(this);
 
-    new Runnable() {
-        @Override
-        public void run() {
+        new Runnable() {
+            @Override
+            public void run() {
 
-        }
-    }.run();
+            }
+        }.run();
 
 
         // CaseSelectingComponent caseSelectingComponent = new CaseSelectingComponent(this);

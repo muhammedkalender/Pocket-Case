@@ -1,12 +1,14 @@
 package software.kalender.pocketcase.database;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.TypeConverter;
 
 import java.security.Key;
 import java.util.Date;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.enums.CaseSpecialEnum;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
@@ -59,7 +61,7 @@ public class Converters {
 
     @TypeConverter
     public static long caseModelToId(CaseModel caseModel) {
-        return caseModel == null ? 0 : caseModel.id;
+        return caseModel == null ? 0 : caseModel.caseId;
     }
 
     //endregion
@@ -68,7 +70,7 @@ public class Converters {
 
     @TypeConverter
     public static long inventoryItemToId(InventoryItemModel inventoryItemModel) {
-        return inventoryItemModel == null ? 0 : inventoryItemModel.id;
+        return inventoryItemModel == null ? 0 : inventoryItemModel.inventoryItemId;
     }
 
     @TypeConverter
@@ -82,7 +84,7 @@ public class Converters {
 
     @TypeConverter
     public static long itemToId(ItemModel itemModel) {
-        return itemModel == null ? 0 : itemModel.id;
+        return itemModel == null ? 0 : itemModel.itemId;
     }
 
     @TypeConverter
@@ -96,7 +98,7 @@ public class Converters {
 
     @TypeConverter
     public static long itemQualityToId(ItemQualityModel itemQualityModel) {
-        return itemQualityModel == null ? 0 : itemQualityModel.id;
+        return itemQualityModel == null ? 0 : itemQualityModel.itemQualityId;
     }
 
     @TypeConverter
@@ -110,7 +112,7 @@ public class Converters {
 
     @TypeConverter
     public static long itemSkinToId(ItemSkinModel itemSkinModel) {
-        return itemSkinModel == null ? 0 : itemSkinModel.id;
+        return itemSkinModel == null ? 0 : itemSkinModel.itemSkinId;
     }
 
     @TypeConverter
@@ -124,7 +126,7 @@ public class Converters {
 
     @TypeConverter
     public static long itemTypeToId(ItemTypeModel Model) {
-        return Model == null ? 0 : Model.id;
+        return Model == null ? 0 : Model.itemTypeId;
     }
 
     @TypeConverter
@@ -143,7 +145,7 @@ public class Converters {
 
     @TypeConverter
     public static long keyToId(KeyModel keyModel) {
-        return keyModel == null ? 0 : keyModel.id;
+        return keyModel == null ? 0 : keyModel.keyId;
     }
 
     //endregion
@@ -200,6 +202,30 @@ public class Converters {
     @TypeConverter
     public static CaseTypeEnum caseTypeFromIndex(int index) {
         return CaseTypeEnum.values()[index];
+    }
+
+    //endregion
+
+    //region Case Special
+
+    @Nullable
+    @TypeConverter
+    public static int caseSpecialToIndex(CaseSpecialEnum caseSpecialEnum) {
+        if (caseSpecialEnum == null) {
+            return -1;
+        }
+
+        return caseSpecialEnum.ordinal();
+    }
+
+    @Nullable
+    @TypeConverter
+    public static CaseSpecialEnum caseSpecialFromIndex(int index) {
+        if (index == -1) {
+            return null;
+        }
+
+        return CaseSpecialEnum.values()[index];
     }
 
     //endregion

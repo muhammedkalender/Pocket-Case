@@ -7,6 +7,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.enums.CaseSpecialEnum;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.helpers.MoneyHelper;
 
@@ -33,6 +34,9 @@ public class CaseModel {
     @NonNull
     @ColumnInfo(name = "caseType")
     public CaseTypeEnum caseType;
+
+    @ColumnInfo(name = "caseSpecial")
+    public CaseSpecialEnum caseSpecial;
 
     @Ignore
     public CaseModel insert() {

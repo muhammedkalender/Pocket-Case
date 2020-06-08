@@ -2,4 +2,6 @@
     <string name="app_name">Pocket Case</string>
     <string name="case_type_weapon">Weapon Case</string>
     <string name="example">#Example#</string>
+    <string name="case_opening_button_start">Kasa Açılıyor...</string>
+    <string name="case_opening_button_finish">KASAYI AÇ</string>
 </resources>
