@@ -3,6 +3,7 @@ package software.kalender.pocketcase;
 import androidx.annotation.NonNull;
 
 import software.kalender.pocketcase.database.AppDatabase;
+import software.kalender.pocketcase.helpers.ConfigHelper;
 import software.kalender.pocketcase.helpers.LogHelper;
 import software.kalender.pocketcase.helpers.ResourceHelper;
 
@@ -12,4 +13,5 @@ public class Singleton {
 
     public static LogHelper log;
     public static ResourceHelper resource;
+    public static ConfigHelper configHelper;
 }

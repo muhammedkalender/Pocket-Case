@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.List;
+import java.util.Random;
 
 import software.kalender.pocketcase.components.CaseSelectingComponent;
 import software.kalender.pocketcase.database.AppDatabase;
@@ -23,6 +24,7 @@ import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.games.CaseOpeningGame;
+import software.kalender.pocketcase.helpers.ConfigHelper;
 import software.kalender.pocketcase.helpers.LogHelper;
 import software.kalender.pocketcase.helpers.MoneyHelper;
 import software.kalender.pocketcase.helpers.ResourceHelper;
@@ -52,92 +54,13 @@ public class MainActivity extends AppCompatActivity {
 
         Singleton.resource = new ResourceHelper(this);
 
-        ItemTypeModel itemTypeModel = new ItemTypeModel();
-        itemTypeModel.name = "Weapon";
-        itemTypeModel.insert();
+        Singleton.configHelper = new ConfigHelper(this);
 
-        ItemModel itemModel = new ItemModel();
-        itemModel.type = itemTypeModel;
-        itemModel.name = "test item ";
-        itemModel.insert();
+        if (Singleton.configHelper.getBoolean("first_open", true)) {
+            generateDefaultData(); //TODO
 
-        KeyModel keyModel = new KeyModel();
-        keyModel.name = "Key 1";
-        keyModel.price = MoneyHelper.make(CurrencyEnum.USD, 15L);
-        keyModel.insert();
-
-        CaseModel caseModel = new CaseModel();
-        caseModel.name = "Case 1";
-        caseModel.caseKey = keyModel;
-        caseModel.caseChance = new CaseChanceModel();
-        caseModel.price = MoneyHelper.make(CurrencyEnum.USD, 20L);
-        caseModel.caseType = CaseTypeEnum.NULL_CASE;
-        caseModel.caseSpecial = CaseSpecialEnum.KNIFE;
-        caseModel.insert();
-
-        ItemSkinModel itemSkinModel222 = new ItemSkinModel();
-        itemSkinModel222.name = "test RARE";
-        itemSkinModel222.color = ColorEnum.RARE;
-        itemSkinModel222.item = itemModel;
-        itemSkinModel222.skinCase = caseModel;
-        itemSkinModel222.insert();
-
-
-        ItemSkinModel itemSkinModel = new ItemSkinModel();
-        itemSkinModel.name = "test MYT";
-        itemSkinModel.color = ColorEnum.MYTHICAL;
-        itemSkinModel.item = itemModel;
-        itemSkinModel.skinCase = caseModel;
-        itemSkinModel.insert();
-
-        ItemSkinModel itemSkinModel1 = new ItemSkinModel();
-        itemSkinModel1.name = "test LEGE";
-        itemSkinModel1.color = ColorEnum.LEGENDARY;
-        itemSkinModel1.item = itemModel;
-        itemSkinModel1.skinCase = caseModel;
-        itemSkinModel1.insert();
-
-        ItemSkinModel itemSkinModel2 = new ItemSkinModel();
-        itemSkinModel2.name = "test ANCI";
-        itemSkinModel2.color = ColorEnum.ANCIENT;
-        itemSkinModel2.item = itemModel;
-        itemSkinModel2.skinCase = caseModel;
-        itemSkinModel2.insert();
-
-        ItemSkinModel itemSkinModel3 = new ItemSkinModel();
-        itemSkinModel3.name = "test COMM";
-        itemSkinModel3.color = ColorEnum.COMMON;
-        itemSkinModel3.item = itemModel;
-        itemSkinModel3.skinCase = caseModel;
-        itemSkinModel3.insert();
-
-        ItemSkinModel itemSkinModel4 = new ItemSkinModel();
-        itemSkinModel4.name = "test UNCOMM";
-        itemSkinModel4.color = ColorEnum.UNCOMMON;
-        itemSkinModel4.item = itemModel;
-        itemSkinModel4.skinCase = caseModel;
-        itemSkinModel4.insert();
-
-        ItemSkinModel itemSkinModel5 = new ItemSkinModel();
-        itemSkinModel5.name = "test UNIQ";
-        itemSkinModel5.color = ColorEnum.UNIQUE;
-        itemSkinModel5.item = itemModel;
-        itemSkinModel5.skinCase = caseModel;
-        itemSkinModel5.insert();
-
-        ItemQualityModel itemQualityModel = new ItemQualityModel();
-        itemQualityModel.statTrak = false;
-        itemQualityModel.price = MoneyHelper.make(CurrencyEnum.USD, 25L);
-        itemQualityModel.quality = "TEST";
-        itemQualityModel.skin = itemSkinModel;
-        itemQualityModel.insert();
-
-        for (int i = 0; i < 36; i++) {
-            ItemSkinModel itemSkinModel22 = Singleton.db.caseDao().getRandomItemFromColor(caseModel.caseId, ColorEnum.MYTHICAL);
-
-            Log.e("ada", "aaa");
+            Singleton.configHelper.setBoolean("first_open", false);
         }
-
 
         CaseOpeningGame caseOpeningGame = new CaseOpeningGame(this);
 
@@ -159,6 +82,56 @@ public class MainActivity extends AppCompatActivity {
 //            Log.e("aaa", caseModel.name);
 //        }
         // Log.e("ada", room.caseDAO.get(1).name);
+    }
+
+    private boolean generateDefaultData() {
+        //TODO
+        Random random = new Random();
+
+        ItemTypeModel itemTypeModel = new ItemTypeModel();
+        itemTypeModel.name = "Weapon";
+        itemTypeModel.insert();
+
+        for (int iCase = 0; iCase < 6; iCase++) {
+            KeyModel keyModel = new KeyModel();
+            keyModel.name = "TEST_KEY #" + random.nextInt(10);
+            keyModel.price = MoneyHelper.make(CurrencyEnum.USD, (long) random.nextInt(10000));
+            keyModel.insert();
+
+            CaseModel caseModel = new CaseModel();
+            caseModel.name = "TEST_CASE #" + random.nextInt(100);
+            caseModel.caseKey = keyModel;
+            caseModel.caseChance = new CaseChanceModel();
+            caseModel.price = MoneyHelper.make(CurrencyEnum.USD, (long) random.nextInt(10000));
+            caseModel.caseType = CaseTypeEnum.NULL_CASE;
+            caseModel.caseSpecial = CaseSpecialEnum.KNIFE;
+            caseModel.insert();
+
+            for (int iItem = 0; iItem < 12; iItem++) {
+                ItemModel itemModel = new ItemModel();
+                itemModel.type = itemTypeModel;
+                itemModel.name = "TEST_ITEM #" + random.nextInt(150);
+                itemModel.insert();
+
+                ItemSkinModel itemSkinModel = new ItemSkinModel();
+                itemSkinModel.name = "TEST_SKIN #" + iItem;
+                itemSkinModel.color = ColorEnum.values()[iItem % ColorEnum.values().length];
+                itemSkinModel.item = itemModel;
+                itemSkinModel.skinCase = caseModel;
+                itemSkinModel.insert();
+
+                for (int iItemQuality = 0; iItemQuality < 4; iItemQuality++) {
+                    ItemQualityModel itemQualityModel = new ItemQualityModel();
+                    itemQualityModel.statTrak = iItemQuality == 3;
+                    itemQualityModel.price = MoneyHelper.make(CurrencyEnum.USD, (long) random.nextInt(15000));
+                    itemQualityModel.quality = "TEST_QUALITY #" + iItemQuality;
+                    itemQualityModel.skin = itemSkinModel;
+                    itemQualityModel.insert();
+                }
+            }
+        }
+
+        return true;
     }
 
 }

@@ -126,4 +126,39 @@ public class ConfigHelper {
     }
 
     //endregion
+
+    //region Boolean
+
+    public boolean getBoolean(String key){
+        return getBoolean(key, AppConstant.defaultBoolean);
+    }
+
+    public boolean getBoolean(String key, boolean def){
+        try{
+            SharedPreferences sharedPreferences = this.context.getSharedPreferences(key, Context.MODE_PRIVATE);
+
+            return sharedPreferences.getBoolean(key, def);
+        }catch (Exception e){
+            Singleton.log.error(ErrorCode.CONFIG_GET_BOOLEAN, e);
+
+            return def;
+        }
+    }
+
+    public boolean setBoolean(String key, boolean val){
+        try{
+            SharedPreferences sharedPreferences = this.context.getSharedPreferences(key, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putBoolean(key, val);
+
+            return editor.commit();
+        }catch (Exception e){
+            Singleton.log.error(ErrorCode.CONFIG_SET_BOOLEAN, e);
+
+            return false;
+        }
+    }
+
+    //endregion
 }
