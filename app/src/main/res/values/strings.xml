@@ -7,4 +7,16 @@
     <string name="case_special_default">★ Rare Special Item ★</string>
     <string name="case_opening_button_start_with_case">OPEN CASE - %1$s - %2$s</string>
     <string name="new_item_obtained">New item obtained!</string>
+    <string name="win_item_add_inventory">Add Inventory</string>
+    <string name="win_item_sell">Sell Item - %1$s</string>
+    <string name="quality_factory_new">Factory New</string>
+    <string name="quality_minimal_wear">Minimal Wear</string>
+    <string name="quality_field_tested">Field-Tested</string>
+    <string name="quality_well_worn">Well-Worn</string>
+    <string name="quality_battle_scarred">Battle-Scarred</string>
+    <string name="quality_stattrak_factory_new">StatTrak Factory New</string>
+    <string name="quality_stattrak_minimal_wear">StatTrak Minimal Wear</string>
+    <string name="quality_stattrak_field_tested">Field-Tested</string>
+    <string name="quality_stattrak_well_worn">StatTrak Well-Worn</string>
+    <string name="quality_stattrak_battle_scarred">StatTrak Battle-Scarred</string>
 </resources>

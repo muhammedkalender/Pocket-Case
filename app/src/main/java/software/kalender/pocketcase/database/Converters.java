@@ -8,11 +8,15 @@ import java.security.Key;
 import java.util.Date;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.chances.ItemQualityChance;
 import software.kalender.pocketcase.enums.CaseSpecialEnum;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
+import software.kalender.pocketcase.enums.ItemQualityEnum;
 import software.kalender.pocketcase.helpers.MoneyHelper;
+import software.kalender.pocketcase.helpers.RankHelper;
+import software.kalender.pocketcase.helpers.XPHelper;
 import software.kalender.pocketcase.models.CaseChanceModel;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.InventoryItemModel;
@@ -226,6 +230,62 @@ public class Converters {
         }
 
         return CaseSpecialEnum.values()[index];
+    }
+
+    //endregion
+
+    //region Item Quality
+
+    @TypeConverter
+    public static int itemQualityToIndex(@NonNull ItemQualityEnum itemQualityEnum){
+        return itemQualityEnum.ordinal();
+    }
+
+    @TypeConverter
+    public static ItemQualityEnum itemQualityFromIndex(int index){
+        return ItemQualityEnum.values()[index];
+    }
+
+    //endregion
+
+    //region Item Quality Chance
+
+    @TypeConverter
+    public static String itemQualityChanceToQuery(@NonNull ItemQualityChance itemQualityChance) {
+        return itemQualityChance.toQuery();
+    }
+
+    @TypeConverter
+    public static ItemQualityChance itemQualityChanceFromQuery(String query) {
+        return new ItemQualityChance(query);
+    }
+
+    //endregion
+
+    //region XO Helper
+
+    @TypeConverter
+    public static long XPHelperToXP(@NonNull XPHelper xpHelper){
+        return xpHelper.getXP();
+    }
+
+    @TypeConverter
+    public static XPHelper XPHelperFromXP(long xp){
+        return new XPHelper(xp);
+    }
+
+    //endregion
+
+    //region Rank Helper
+
+    @TypeConverter
+    public static long RankToInventoryValue(@NonNull RankHelper rankHelper){
+        return rankHelper.getInventoryValue();
+    }
+
+    @TypeConverter
+    public static RankHelper RankFromInventoryValue(long inventoryValue){
+        return new RankHelper(inventoryValue);
     }
 
     //endregion

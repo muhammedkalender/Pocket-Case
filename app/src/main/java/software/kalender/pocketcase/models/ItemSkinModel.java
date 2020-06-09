@@ -8,6 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.chances.ItemQualityChance;
 import software.kalender.pocketcase.enums.ColorEnum;
 
 @Entity(tableName = "itemSkins")
@@ -35,6 +36,10 @@ public class ItemSkinModel {
     //Default skins/id
     @ColumnInfo(name = "itemSkinImagePath")
     public String itemSkinImagePath;
+
+    @NonNull
+    @ColumnInfo(name = "itemSkinQualityChance")
+    public ItemQualityChance itemQualityChance;
 
     @Ignore
     public ItemSkinModel insert() {

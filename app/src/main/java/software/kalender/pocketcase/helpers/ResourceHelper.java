@@ -35,4 +35,14 @@ public class ResourceHelper {
             return null;
         }
     }
+
+    public int getColor(int resId){
+        try{
+            return context.getColor(resId);
+        }catch (Exception e){
+            Singleton.log.error(ErrorCode.RESOURCE_GET_COLOR, e);
+
+            return AppConstant.defaultColor;
+        }
+    }
 }

@@ -17,11 +17,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
 import java.util.logging.Handler;
 
 import software.kalender.pocketcase.R;
+import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.abstracts.ComponentAbstract;
+import software.kalender.pocketcase.enums.ItemQualityEnum;
 import software.kalender.pocketcase.models.CaseModel;
+import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
 import software.kalender.pocketcase.views.OpeningScrollItemView;
 

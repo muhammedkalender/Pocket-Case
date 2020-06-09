@@ -1,94 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/componentWinItemRoot"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true">
 
     <RelativeLayout
-        android:layout_width="360dp"
-        android:layout_height="420dp"
-        android:paddingHorizontal="@dimen/activity_horizontal_margin"
-        android:paddingVertical="@dimen/activity_vertical_margin">
-
-        <TextView
-            android:id="@+id/componentWinItemHeader"
-            style="@style/text"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/unique"
-            android:gravity="center"
-            android:text="@string/new_item_obtained"
-            android:textSize="20sp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/componentWinItemGraphic"
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:layout_below="@id/componentWinItemHeader"
-            android:background="@color/colorAccent"
-            android:gravity="center">
+            android:layout_width="360dp"
+            android:layout_height="420dp"
+            android:layout_centerInParent="true"
+            android:paddingHorizontal="@dimen/activity_horizontal_margin"
+            android:paddingVertical="@dimen/activity_vertical_margin">
 
-            <ImageView
-                android:id="@+id/componentWinItemColorBackground"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:layout_margin="15dp"
-                android:background="@color/colorCommon" />
+            <TextView
+                android:id="@+id/componentWinItemHeader"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/unique"
+                android:gravity="center"
+                android:text="@string/new_item_obtained"
+                android:textSize="20sp" />
 
-            <ImageView
-                android:id="@+id/componentWinItemBackground"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_margin="30dp"
-                android:background="@color/colorLegendary" />
+            <RelativeLayout
+                android:id="@+id/componentWinItemGraphic"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_below="@id/componentWinItemHeader"
+                android:background="@color/colorAccent"
+                android:gravity="center">
 
-            <ImageView
-                android:id="@+id/componentWinItemImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_margin="30dp"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/test" />
+                <ImageView
+                    android:id="@+id/componentWinItemColorBackground"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="15dp"
+                    android:background="@color/colorCommon" />
 
+                <ImageView
+                    android:id="@+id/componentWinItemBackground"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="30dp"
+                    android:background="@color/colorLegendary" />
+
+                <ImageView
+                    android:id="@+id/componentWinItemImage"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/test" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/componentWinItemQualityAndPrice"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_below="@id/componentWinItemGraphic"
+                android:background="@drawable/unique"
+                android:gravity="center"
+                android:text="Field-TEsted - $402.83"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/componentWinItemInfo"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_below="@id/componentWinItemQualityAndPrice"
+                android:background="@drawable/unique"
+                android:gravity="center"
+                android:text="Field-TEsted - $402.83"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/componentWinItemInfo">
+
+                <Button
+                    android:id="@+id/componentWinItemSellButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="SELL ITEM - 1596 $" />
+
+                <Button
+                    android:id="@+id/componentWinItemAddInventoryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/win_item_add_inventory" />
+            </LinearLayout>
         </RelativeLayout>
-
-        <TextView
-            android:id="@+id/componentWinItemQualityAndPrice"
-            style="@style/text"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_below="@id/componentWinItemGraphic"
-            android:background="@drawable/unique"
-            android:gravity="center"
-            android:text="Field-TEsted - $402.83"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/componentWinItemInfo"
-            style="@style/text"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_below="@id/componentWinItemQualityAndPrice"
-            android:background="@drawable/unique"
-            android:gravity="center"
-            android:text="Field-TEsted - $402.83"
-            android:textSize="16sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_below="@id/componentWinItemInfo">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="SELL ITEM - 1596 $" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="ADDD INVENTORY" />
-        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

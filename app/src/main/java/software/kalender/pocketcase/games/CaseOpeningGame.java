@@ -3,8 +3,10 @@ package software.kalender.pocketcase.games;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 
@@ -13,9 +15,12 @@ import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.abstracts.GameAbstract;
 import software.kalender.pocketcase.components.CaseOpeningScrollComponent;
 import software.kalender.pocketcase.components.CaseSelectingComponent;
+import software.kalender.pocketcase.components.WinItemComponent;
+import software.kalender.pocketcase.constants.GameConstant;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.helpers.ViewHelper;
 import software.kalender.pocketcase.models.CaseModel;
+import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
 
 public class CaseOpeningGame extends GameAbstract {
@@ -53,7 +58,7 @@ public class CaseOpeningGame extends GameAbstract {
         caseSelectingComponent.setOnCaseChanged(new Runnable() {
             @Override
             public void run() {
-                if(!caseOpeningScrollComponent.isRunning){
+                if (!caseOpeningScrollComponent.isRunning) {
                     caseScrollButton.setText(Singleton.resource.getString(R.string.case_opening_button_start_with_case, currentCase.name, currentCase.getTotalPriceWithSymbol()));
                 }
 
@@ -72,7 +77,7 @@ public class CaseOpeningGame extends GameAbstract {
         caseScrollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                ItemSkinModel[] itemSkinModels = new ItemSkinModel[36];
+                final ItemSkinModel[] itemSkinModels = new ItemSkinModel[36];
 
                 for (int i = 0; i < 36; i++) {
                     itemSkinModels[i] = Singleton.db.caseDao().getRandomItemFromColor(currentCase.caseId, currentCase.caseChance.random());
@@ -90,6 +95,15 @@ public class CaseOpeningGame extends GameAbstract {
                     @Override
                     public void run() {
                         viewHelper.makeEnable(caseScrollButton, Singleton.resource.getString(R.string.case_opening_button_start_with_case, currentCase.name, currentCase.getTotalPriceWithSymbol()));
+
+                        ItemQualityModel itemQualityModel = Singleton.db.itemQualityDao().qualityFromEnum(itemSkinModels[GameConstant.CASE_OPEN_WIN_INDEX].itemSkinId, itemSkinModels[GameConstant.CASE_OPEN_WIN_INDEX].itemQualityChance.random());
+
+                        WinItemComponent winItemComponent = new WinItemComponent(context);
+
+                        View winItemComponentView = winItemComponent.getView();
+                        winItemComponent.loadItemQuality(itemQualityModel);
+                        winItemComponentView.setForegroundGravity(Gravity.CENTER);
+                        ((RelativeLayout)CaseOpeningGame.super.view).addView(winItemComponentView);
                     }
                 });
                 caseOpeningScrollComponent.addToScroll(itemSkinModels);

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/viewRoot"
     android:layout_width="match_parent"
+    android:gravity="center"
     android:layout_height="match_parent">
 
     <ScrollView
@@ -15,15 +16,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include android:id="@+id/areaCaseScroll"
+            <include
+                android:id="@+id/areaCaseScroll"
                 layout="@layout/component_case_scroll" />
 
             <Button
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
                 android:id="@+id/componentCaseScrollButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:text="TODO" />
 
             <include

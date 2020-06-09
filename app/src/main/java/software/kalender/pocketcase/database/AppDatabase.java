@@ -24,10 +24,20 @@ import software.kalender.pocketcase.models.KeyModel;
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CaseDao caseDao();
+
     public abstract InventoryItemDao inventoryItemDao();
+
     public abstract ItemDao itemDao();
+
     public abstract ItemQualityDao itemQualityDao();
+
     public abstract ItemSkinDao itemSkinDao();
+
     public abstract ItemTypeDao itemTypeDao();
+
     public abstract KeyDao keyDao();
+
+    public abstract UserDao userDao();
+
+    public abstract RankDao rankDao();
 }

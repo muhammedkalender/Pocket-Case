@@ -17,17 +17,20 @@ import android.widget.RelativeLayout;
 import java.util.List;
 import java.util.Random;
 
+import software.kalender.pocketcase.chances.ItemQualityChance;
 import software.kalender.pocketcase.components.CaseSelectingComponent;
 import software.kalender.pocketcase.database.AppDatabase;
 import software.kalender.pocketcase.enums.CaseSpecialEnum;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
+import software.kalender.pocketcase.enums.ItemQualityEnum;
 import software.kalender.pocketcase.games.CaseOpeningGame;
 import software.kalender.pocketcase.helpers.ConfigHelper;
 import software.kalender.pocketcase.helpers.LogHelper;
 import software.kalender.pocketcase.helpers.MoneyHelper;
 import software.kalender.pocketcase.helpers.ResourceHelper;
+import software.kalender.pocketcase.helpers.XPHelper;
 import software.kalender.pocketcase.models.CaseChanceModel;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.ItemModel;
@@ -35,6 +38,7 @@ import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
 import software.kalender.pocketcase.models.ItemTypeModel;
 import software.kalender.pocketcase.models.KeyModel;
+import software.kalender.pocketcase.models.UserModel;
 import software.kalender.pocketcase.views.CaseSelectItemCaseView;
 
 public class MainActivity extends AppCompatActivity {
@@ -77,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
 
         //((LinearLayout)findViewById(R.id.zest)).addView(caseSelectingComponent.getView());
         ((LinearLayout) findViewById(R.id.zest)).addView(caseOpeningGame.getView());
+
+
+        Singleton.user = Singleton.db.userDao().defaultUser();
+
 //
 //        for (CaseModel caseModel : caseModelList) {
 //            Log.e("aaa", caseModel.name);
@@ -86,7 +94,15 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean generateDefaultData() {
         //TODO
+
         Random random = new Random();
+
+        UserModel userModel = new UserModel();
+        userModel.userName = "Player";
+        userModel.userBalance = MoneyHelper.make(CurrencyEnum.USD, CurrencyEnum.USD.awardedVideoAmount() * 10);
+        userModel.userProfileImagePath = ""; //TODO
+        userModel.userXP = new XPHelper();
+        userModel.insert();
 
         ItemTypeModel itemTypeModel = new ItemTypeModel();
         itemTypeModel.name = "Weapon";
@@ -118,11 +134,13 @@ public class MainActivity extends AppCompatActivity {
                 itemSkinModel.color = ColorEnum.values()[iItem % ColorEnum.values().length];
                 itemSkinModel.item = itemModel;
                 itemSkinModel.skinCase = caseModel;
+                itemSkinModel.itemQualityChance = new ItemQualityChance();
                 itemSkinModel.insert();
 
-                for (int iItemQuality = 0; iItemQuality < 4; iItemQuality++) {
+                for (int iItemQuality = 0; iItemQuality < ItemQualityEnum.values().length; iItemQuality++) {
                     ItemQualityModel itemQualityModel = new ItemQualityModel();
-                    itemQualityModel.statTrak = iItemQuality == 3;
+                    itemQualityModel.statTrak = iItemQuality > 4;
+                    itemQualityModel.itemQualityEnum = ItemQualityEnum.values()[iItemQuality];
                     itemQualityModel.price = MoneyHelper.make(CurrencyEnum.USD, (long) random.nextInt(15000));
                     itemQualityModel.quality = "TEST_QUALITY #" + iItemQuality;
                     itemQualityModel.skin = itemSkinModel;

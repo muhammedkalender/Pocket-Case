@@ -1,6 +1,5 @@
 package software.kalender.pocketcase.enums;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
 import software.kalender.pocketcase.R;
@@ -14,8 +13,7 @@ public enum ColorEnum {
     COMMON {
         @Override
         public int color() {
-            return Color.parseColor("#C1B4AF");
-
+            return Singleton.resource.getColor(R.color.colorCommon);
         }
 
         @Override
@@ -30,8 +28,7 @@ public enum ColorEnum {
     }, UNCOMMON {
         @Override
         public int color() {
-            return Color.parseColor("#8C96E1");
-
+            return Singleton.resource.getColor(R.color.colorUncommon);
         }
 
         @Override
@@ -46,11 +43,11 @@ public enum ColorEnum {
     }, RARE {
         @Override
         public int color() {
-            return Color.parseColor("#4b69cd");
+            return Singleton.resource.getColor(R.color.colorRare);
         }
 
         @Override
-        public int chance(){
+        public int chance() {
             return 5000;
         }
 
@@ -67,7 +64,7 @@ public enum ColorEnum {
     MYTHICAL {
         @Override
         public int color() {
-            return Color.parseColor("#8847ff");
+            return Singleton.resource.getColor(R.color.colorMythical);
         }
 
         @Override
@@ -88,7 +85,7 @@ public enum ColorEnum {
     LEGENDARY {
         @Override
         public int color() {
-            return Color.parseColor("#d32ce6");
+            return Singleton.resource.getColor(R.color.colorLegendary);
         }
 
         @Override
@@ -109,7 +106,7 @@ public enum ColorEnum {
     ANCIENT {
         @Override
         public int color() {
-            return Color.parseColor("#eb4b4b");
+            return Singleton.resource.getColor(R.color.colorAncient);
         }
 
         @Override
@@ -130,7 +127,7 @@ public enum ColorEnum {
     UNIQUE {
         @Override
         public int color() {
-            return Color.parseColor("#caab05");
+            return Singleton.resource.getColor(R.color.colorUnique);
         }
 
         @Override

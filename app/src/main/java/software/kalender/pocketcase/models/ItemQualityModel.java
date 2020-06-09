@@ -8,6 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.enums.ItemQualityEnum;
 import software.kalender.pocketcase.helpers.MoneyHelper;
 
 @Entity(tableName = "itemQualities")
@@ -19,6 +20,10 @@ public class ItemQualityModel {
     @NonNull
     @ColumnInfo(name = "itemQualityName")
     public String quality;
+
+    @NonNull
+    @ColumnInfo(name = "itemQuality")
+    public ItemQualityEnum itemQualityEnum;
 
     @NonNull
     @ColumnInfo(name = "itemQualityPrice")

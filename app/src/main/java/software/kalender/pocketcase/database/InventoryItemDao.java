@@ -15,4 +15,10 @@ public interface InventoryItemDao extends DaoInterface<InventoryItemModel> {
 
     @Query("SELECT * FROM 'inventoryItems'")
     public List<InventoryItemModel> list();
+
+    @Query("SELECT SUM(itemQualityPrice) FROM inventoryItems WHERE inventoryItemActive = 1")
+    public long calculateInventoryValue();
+
+    @Query("SELECT SUM(itemQualityPrice) FROM inventoryItems")
+    public long calculateInventoryValueIncludePassives();
 }

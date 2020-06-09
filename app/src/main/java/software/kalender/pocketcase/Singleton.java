@@ -6,6 +6,7 @@ import software.kalender.pocketcase.database.AppDatabase;
 import software.kalender.pocketcase.helpers.ConfigHelper;
 import software.kalender.pocketcase.helpers.LogHelper;
 import software.kalender.pocketcase.helpers.ResourceHelper;
+import software.kalender.pocketcase.models.UserModel;
 
 public class Singleton {
     @NonNull
@@ -14,4 +15,5 @@ public class Singleton {
     public static LogHelper log;
     public static ResourceHelper resource;
     public static ConfigHelper configHelper;
+    public static UserModel user;
 }
