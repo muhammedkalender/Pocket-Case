@@ -42,19 +42,32 @@ public class CaseOpeningGame extends GameAbstract {
         final CaseOpeningScrollComponent caseOpeningScrollComponent = new CaseOpeningScrollComponent(this.context, view.findViewById(R.id.areaCaseScroll));
         caseOpeningScrollComponent.generateView();
 
+        final Button caseScrollButton = view.findViewById(R.id.componentCaseScrollButton);
+
         currentCase = Singleton.db.caseDao().getLastCaseFromType(CaseTypeEnum.values()[0]);
+
+
+        caseOpeningScrollComponent.loadCaseDetail(currentCase);
+        caseScrollButton.setText(Singleton.resource.getString(R.string.case_opening_button_start_with_case, currentCase.name, currentCase.getTotalPriceWithSymbol()));
 
         caseSelectingComponent.setOnCaseChanged(new Runnable() {
             @Override
             public void run() {
+                if(!caseOpeningScrollComponent.isRunning){
+                    caseScrollButton.setText(Singleton.resource.getString(R.string.case_opening_button_start_with_case, currentCase.name, currentCase.getTotalPriceWithSymbol()));
+                }
+
+                caseOpeningScrollComponent.hideViewsOfComponent();
+
                 currentCase = caseSelectingComponent.getSelectedCase();
                 caseOpeningScrollComponent.loadCaseDetail(caseSelectingComponent.getSelectedCase());
+
+
             }
         });
 
         //TODO
 
-        final Button caseScrollButton = view.findViewById(R.id.componentCaseScrollButton);
 
         caseScrollButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +89,7 @@ public class CaseOpeningGame extends GameAbstract {
                 caseOpeningScrollComponent.setOnFinish(new Runnable() {
                     @Override
                     public void run() {
-                        viewHelper.makeEnable(caseScrollButton, R.string.case_opening_button_finish);
+                        viewHelper.makeEnable(caseScrollButton, Singleton.resource.getString(R.string.case_opening_button_start_with_case, currentCase.name, currentCase.getTotalPriceWithSymbol()));
                     }
                 });
                 caseOpeningScrollComponent.addToScroll(itemSkinModels);

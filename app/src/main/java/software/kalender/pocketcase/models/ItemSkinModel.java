@@ -32,6 +32,10 @@ public class ItemSkinModel {
     @Embedded
     public CaseModel skinCase;
 
+    //Default skins/id
+    @ColumnInfo(name = "itemSkinImagePath")
+    public String itemSkinImagePath;
+
     @Ignore
     public ItemSkinModel insert() {
         this.itemSkinId = Singleton.db.itemSkinDao().insert(this);

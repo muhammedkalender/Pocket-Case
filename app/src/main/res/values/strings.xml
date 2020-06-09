@@ -4,4 +4,7 @@
     <string name="example">#Example#</string>
     <string name="case_opening_button_start">Kasa Açılıyor...</string>
     <string name="case_opening_button_finish">KASAYI AÇ</string>
+    <string name="case_special_default">★ Rare Special Item ★</string>
+    <string name="case_opening_button_start_with_case">OPEN CASE - %1$s - %2$s</string>
+    <string name="new_item_obtained">New item obtained!</string>
 </resources>

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -27,18 +28,15 @@ import software.kalender.pocketcase.views.OpeningScrollItemView;
 public class CaseOpeningScrollComponent extends ComponentAbstract {
     private Runnable onStart, onFinish;
     private HorizontalScrollView scrollView;
+    public boolean isRunning = false;
 
     public CaseOpeningScrollComponent(Context context) {
         super(context);
     }
 
-
-
     public CaseOpeningScrollComponent(Context context, View view) {
         super(context, view);
     }
-
-
 
     @Override
     public View generateView() {
@@ -113,6 +111,10 @@ public class CaseOpeningScrollComponent extends ComponentAbstract {
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
 
+                isRunning = true;
+
+                showViewsOfComponent();
+
                 if(onStart != null){
                     onStart.run();
                 }
@@ -121,6 +123,8 @@ public class CaseOpeningScrollComponent extends ComponentAbstract {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+
+                isRunning = false;
 
                 if(onFinish != null){
                     onFinish.run();
@@ -153,14 +157,40 @@ public class CaseOpeningScrollComponent extends ComponentAbstract {
     public boolean loadCaseDetail(@NonNull CaseModel caseModel){
         //TODO
 
+        ((ImageView)view.findViewById(R.id.imageSelectCase)).setImageResource(R.mipmap.test); //TODO, GLIDE
         ((TextView)view.findViewById(R.id.nameSelectCase)).setText(caseModel.name);
         ((TextView)view.findViewById(R.id.priceSelectCase)).setText(caseModel.price.getFormattedText());
 
         if(caseModel.caseKey != null){
+            ((ImageView)view.findViewById(R.id.imageSelectKey)).setImageResource(R.mipmap.test); //TODO, GLIDE
             ((TextView)view.findViewById(R.id.nameSelectKey)).setText(caseModel.caseKey.name);
             ((TextView)view.findViewById(R.id.priceSelectKey)).setText(caseModel.caseKey.price.getFormattedText());
         }
 
+
+        return true;
+    }
+
+    public boolean showViewsOfComponent(){
+        //TODO
+
+        view.findViewById(R.id.componentCaseSelectSelectedParent).setVisibility(View.INVISIBLE);
+        view.findViewById(R.id.componentCaseScrollScroll).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.componentCaseScrollRouletteUp).setVisibility(View.VISIBLE);
+
+        return true;
+    }
+
+    public boolean hideViewsOfComponent(){
+        //TODO
+
+        if(isRunning){
+           return true;
+        }
+
+        view.findViewById(R.id.componentCaseSelectSelectedParent).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.componentCaseScrollScroll).setVisibility(View.INVISIBLE);
+        view.findViewById(R.id.componentCaseScrollRouletteUp).setVisibility(View.INVISIBLE);
 
         return true;
     }

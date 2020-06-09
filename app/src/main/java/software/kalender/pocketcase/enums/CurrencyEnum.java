@@ -79,13 +79,13 @@ public enum CurrencyEnum {
         String _amount = amount.toString();
 
         if (amount > 100) {
-            return String.format("%1$d.%2$d %3$s",
+            return String.format("%1$s.%2$s %3$s",
                     _amount.substring(0, _amount.length() - 2),
                     _amount.substring(_amount.length() - 2, _amount.length()),
                     symbol()
             );
         } else {
-            return String.format("0.%1$d %1$s",
+            return String.format("0.%1$s %1$s",
                     amount,
                     symbol()
             );

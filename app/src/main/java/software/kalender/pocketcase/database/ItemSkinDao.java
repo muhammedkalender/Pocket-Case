@@ -16,6 +16,6 @@ public interface ItemSkinDao extends DaoInterface<ItemSkinModel> {
     @Query("SELECT * FROM itemSkins")
     public List<ItemSkinModel> list();
 
-    @Query("SELECT * FROM itemskins WHERE caseId = :caseId")
+    @Query("SELECT * FROM itemskins WHERE caseId = :caseId ORDER BY itemSkinColor ASC")
     public List<ItemSkinModel> listFromCaseId(long caseId);
 }

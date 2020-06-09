@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             caseModel.caseKey = keyModel;
             caseModel.caseChance = new CaseChanceModel();
             caseModel.price = MoneyHelper.make(CurrencyEnum.USD, (long) random.nextInt(10000));
-            caseModel.caseType = CaseTypeEnum.NULL_CASE;
+            caseModel.caseType = iCase % 2 == 0 ? CaseTypeEnum.WEAPON_CASE : CaseTypeEnum.NULL_CASE;
             caseModel.caseSpecial = CaseSpecialEnum.KNIFE;
             caseModel.insert();
 

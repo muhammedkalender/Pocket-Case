@@ -14,7 +14,9 @@ import java.util.List;
 import software.kalender.pocketcase.R;
 import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.abstracts.ComponentAbstract;
+import software.kalender.pocketcase.enums.CaseSpecialEnum;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
+import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
 import software.kalender.pocketcase.views.CaseSelectItemCaseView;
@@ -134,7 +136,17 @@ public class CaseSelectingComponent extends ComponentAbstract {
         List<ItemSkinModel> itemSkinModels = Singleton.db.itemSkinDao().listFromCaseId(caseModel.caseId);
 
         for(ItemSkinModel itemSkinModel : itemSkinModels){
+            if(itemSkinModel.color == ColorEnum.UNIQUE){
+                continue;
+            }
+
             CaseSelectItemSkinView caseSelectItemSkinView = new CaseSelectItemSkinView(this.context, itemSkinModel);
+
+            gridLayout.addView(caseSelectItemSkinView.getView());
+        }
+
+        if(caseModel.caseSpecial != null){
+            CaseSelectItemSkinView caseSelectItemSkinView = new CaseSelectItemSkinView(this.context, caseModel.caseSpecial.toItemSkinModel(caseModel));
 
             gridLayout.addView(caseSelectItemSkinView.getView());
         }
