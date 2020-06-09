@@ -43,10 +43,18 @@ public class MoneyHelper {
         return this;
     }
 
+    public MoneyHelper sum(MoneyHelper moneyHelper){
+        return sum(moneyHelper.getBalance());
+    }
+
     public MoneyHelper minus(Long amount) {
         balance -= amount;
 
         return this;
+    }
+
+    public MoneyHelper minus(MoneyHelper moneyHelper){
+        return minus(moneyHelper.getBalance());
     }
 
     //region Calculator functions, Makes new class, you must protect default class if you need

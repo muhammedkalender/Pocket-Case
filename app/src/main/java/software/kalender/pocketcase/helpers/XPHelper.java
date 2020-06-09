@@ -2,8 +2,13 @@ package software.kalender.pocketcase.helpers;
 
 import android.util.Log;
 
+import androidx.room.Ignore;
+
 public class XPHelper {
+    @Ignore
     private long xp = 0;
+
+    @Ignore
     private int level = 0;
 
 
@@ -21,14 +26,17 @@ public class XPHelper {
         }
     }
 
+    @Ignore
     public long getXP() {
         return xp;
     }
 
+    @Ignore
     public void setXP(long xp) {
         this.xp = xp;
     }
 
+    @Ignore
     public boolean addXP(long xp){
         this.xp += xp;
 

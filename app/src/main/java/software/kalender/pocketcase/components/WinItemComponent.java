@@ -72,6 +72,10 @@ public class WinItemComponent extends ComponentAbstract {
             public void onClick(View view) {
                 //TODO
 
+                Singleton.user.userBalance.sum(itemQualityModel.price);
+                Singleton.user.update();
+
+                ((RelativeLayout)WinItemComponent.this.view.getParent()).removeView(WinItemComponent.this.view);
                 Log.e("asda", "moruq");
             }
         });

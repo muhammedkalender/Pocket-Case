@@ -38,7 +38,7 @@ public enum CurrencyEnum {
 
         @Override
         public Long awardedVideoAmount() {
-            return 1000L;
+            return 50000L;
         }
     },
 
@@ -55,7 +55,7 @@ public enum CurrencyEnum {
 
         @Override
         public Long awardedVideoAmount() {
-            return 10000L;
+            return 5000000L;
         }
     },
 
@@ -110,6 +110,6 @@ public enum CurrencyEnum {
     }
 
     public Long awardedVideoAmount(){
-        return 100L;
+        return 5000L;
     }
 }

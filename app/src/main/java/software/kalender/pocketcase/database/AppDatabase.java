@@ -11,6 +11,8 @@ import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
 import software.kalender.pocketcase.models.ItemTypeModel;
 import software.kalender.pocketcase.models.KeyModel;
+import software.kalender.pocketcase.models.RankModel;
+import software.kalender.pocketcase.models.UserModel;
 
 @Database(entities = {
         CaseModel.class,
@@ -19,7 +21,9 @@ import software.kalender.pocketcase.models.KeyModel;
         ItemQualityModel.class,
         ItemSkinModel.class,
         ItemTypeModel.class,
-        KeyModel.class
+        KeyModel.class,
+        UserModel.class,
+        RankModel.class
 }, version = 1)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {

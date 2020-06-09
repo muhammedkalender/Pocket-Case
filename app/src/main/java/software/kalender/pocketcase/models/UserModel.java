@@ -43,4 +43,12 @@ public class UserModel {
 
         return this;
     }
+
+    //TODO Verimlilik tartışılır
+    @Ignore
+    public UserModel update(){
+        Singleton.db.userDao().update(this);
+
+        return this;
+    }
 }
