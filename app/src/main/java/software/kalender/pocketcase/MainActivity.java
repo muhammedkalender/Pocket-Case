@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.List;
 import java.util.Random;
@@ -30,6 +31,7 @@ import software.kalender.pocketcase.helpers.ConfigHelper;
 import software.kalender.pocketcase.helpers.LogHelper;
 import software.kalender.pocketcase.helpers.MoneyHelper;
 import software.kalender.pocketcase.helpers.ResourceHelper;
+import software.kalender.pocketcase.helpers.UserHelper;
 import software.kalender.pocketcase.helpers.XPHelper;
 import software.kalender.pocketcase.models.CaseChanceModel;
 import software.kalender.pocketcase.models.CaseModel;
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Singleton.user = Singleton.db.userDao().defaultUser();
-
+        Singleton.userHelper = new UserHelper();
 //
 //        for (CaseModel caseModel : caseModelList) {
 //            Log.e("aaa", caseModel.name);

@@ -1,10 +1,14 @@
 package software.kalender.pocketcase.models;
 
+import android.widget.TextView;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import java.util.HashMap;
 
 import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.constants.GameConstant;
@@ -50,5 +54,31 @@ public class UserModel {
         Singleton.db.userDao().update(this);
 
         return this;
+    }
+
+    @Ignore
+    public UserModel addBalance(MoneyHelper moneyHelper){
+        return addBalance(moneyHelper.getBalance());
+    }
+
+    @Ignore
+    public UserModel addBalance(long amount){
+        userBalance.sum(amount);
+        this.update();
+
+        return this;
+    }
+
+    @Ignore
+    public UserModel delBalance(long amount){
+        userBalance.minus(amount);
+        this.update();
+
+        return this;
+    }
+
+    @Ignore
+    public UserModel delBalance(MoneyHelper moneyHelper){
+        return delBalance(moneyHelper.getBalance());
     }
 }
