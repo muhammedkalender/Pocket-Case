@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="0px">
+
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/containerItem"
+            android:layout_width="75dp"
+            android:layout_height="84dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/componentInventoryItemQuality"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/colorUnique"
+                android:gravity="center"
+                android:text="FACTORY NEW ( FN )"
+                android:textColor="#FFF"
+                android:textSize="6sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="75dp"
+                android:layout_height="56dp"
+                android:elevation="3dp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:transformPivotY="3dp">
+
+                <ImageView
+                    android:id="@+id/componentInventoryItemImage"
+                    android:layout_width="75dp"
+                    android:layout_height="56dp"
+                    android:background="@mipmap/weapon_back"
+                    android:padding="2dp"
+                    android:paddingBottom="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/test" />
+
+
+                <TextView
+                    android:id="@+id/componentInventoryItemPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="3dp"
+                    android:paddingStart="1dp"
+                    android:paddingTop="1dp"
+                    android:shadowColor="#000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="3"
+                    android:text="99999.99 $"
+                    android:textColor="#FFF"
+                    android:textSize="8sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/componentInventoryItemStattrak"
+                    android:layout_width="15dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/colorMythical">
+
+                </ImageView>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/componentInventoryItemName"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@drawable/unique"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="2dp"
+                android:paddingTop="1dp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:text="MP9"
+                android:textColor="#FFF"
+                android:textSize="6sp"
+                android:textStyle="bold"
+                android:transformPivotY="3dp" />
+
+            <TextView
+
+                android:id="@+id/componentInventoryItemSkin"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@drawable/unique"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="2dp"
+                android:paddingBottom="2dp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:text="Dart"
+                android:textColor="#FFF"
+                android:textSize="4sp"
+                android:transformPivotY="3dp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/componentInventoryItemSelected"
+            android:layout_width="75dp"
+            android:layout_height="84dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#70000000" />
+
+    </RelativeLayout>
+</RelativeLayout>

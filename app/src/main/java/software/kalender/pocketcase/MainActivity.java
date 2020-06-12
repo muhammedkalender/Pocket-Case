@@ -27,6 +27,7 @@ import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.enums.ItemQualityEnum;
 import software.kalender.pocketcase.games.CaseOpeningGame;
+import software.kalender.pocketcase.games.InventoryGame;
 import software.kalender.pocketcase.helpers.ConfigHelper;
 import software.kalender.pocketcase.helpers.LogHelper;
 import software.kalender.pocketcase.helpers.MoneyHelper;
@@ -35,6 +36,7 @@ import software.kalender.pocketcase.helpers.UserHelper;
 import software.kalender.pocketcase.helpers.XPHelper;
 import software.kalender.pocketcase.models.CaseChanceModel;
 import software.kalender.pocketcase.models.CaseModel;
+import software.kalender.pocketcase.models.InventoryItemModel;
 import software.kalender.pocketcase.models.ItemModel;
 import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
@@ -42,6 +44,7 @@ import software.kalender.pocketcase.models.ItemTypeModel;
 import software.kalender.pocketcase.models.KeyModel;
 import software.kalender.pocketcase.models.UserModel;
 import software.kalender.pocketcase.views.CaseSelectItemCaseView;
+import software.kalender.pocketcase.views.InventoryItemView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
             Singleton.configHelper.setBoolean("first_open", false);
         }
 
-        CaseOpeningGame caseOpeningGame = new CaseOpeningGame(this);
+        //TODO CaseOpeningGame caseOpeningGame = new CaseOpeningGame(this);
+        InventoryGame inventoryGame = new InventoryGame(this);
+
 
         new Runnable() {
             @Override
@@ -82,7 +87,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         //((LinearLayout)findViewById(R.id.zest)).addView(caseSelectingComponent.getView());
-        ((LinearLayout) findViewById(R.id.zest)).addView(caseOpeningGame.getView());
+        //TODO ((LinearLayout) findViewById(R.id.zest)).addView(caseOpeningGame.getView());
+        ((LinearLayout) findViewById(R.id.zest)).addView(inventoryGame.getView());
+
+
+        InventoryItemModel inventoryItemModel = Singleton.db.inventoryItemDao().get(1);
+
+        InventoryItemView inventoryItemView = new InventoryItemView(this, inventoryItemModel);
+
+        ((LinearLayout)findViewById(R.id.sceneMain)).addView(inventoryItemView.getView());
 
 
         Singleton.user = Singleton.db.userDao().defaultUser();
