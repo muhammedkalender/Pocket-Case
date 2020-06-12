@@ -93,9 +93,34 @@ public class MainActivity extends AppCompatActivity {
 
         InventoryItemModel inventoryItemModel = Singleton.db.inventoryItemDao().get(1);
 
-        InventoryItemView inventoryItemView = new InventoryItemView(this, inventoryItemModel);
+        final InventoryItemView inventoryItemView = new InventoryItemView(this, inventoryItemModel);
 
         ((LinearLayout)findViewById(R.id.sceneMain)).addView(inventoryItemView.getView());
+
+        inventoryItemView.setOnItemClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("item", "clicked");
+            }
+        });
+
+        inventoryItemView.setOnItemSelected(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("item", "onselect");
+
+                inventoryItemView.revertSelection();
+            }
+        });
+
+        inventoryItemView.setOnItemUnSelected(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("item", "on unselect");
+            }
+        });
+
+        //inventoryItemView.revertSelection();
 
 
         Singleton.user = Singleton.db.userDao().defaultUser();
