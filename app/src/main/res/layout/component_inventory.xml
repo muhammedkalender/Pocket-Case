@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorCommon"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollRoot"
+        android:background="@color/colorUnique"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/sceneMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <GridLayout
+                android:id="@+id/componentInventoryGrid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="3">
+
+            </GridLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

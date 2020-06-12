@@ -5,6 +5,7 @@ import androidx.room.Room;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.game_inventory); //TODO
 
 
         Singleton.log = new LogHelper();
@@ -73,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO CaseOpeningGame caseOpeningGame = new CaseOpeningGame(this);
         InventoryGame inventoryGame = new InventoryGame(this);
-
-
+        ((LinearLayout)findViewById(R.id.sceneMain)).addView(inventoryGame.getView());
+        ((LinearLayout)findViewById(R.id.sceneMain)).setBackgroundColor(Color.parseColor("#000000"));
         new Runnable() {
             @Override
             public void run() {
@@ -88,37 +89,37 @@ public class MainActivity extends AppCompatActivity {
 
         //((LinearLayout)findViewById(R.id.zest)).addView(caseSelectingComponent.getView());
         //TODO ((LinearLayout) findViewById(R.id.zest)).addView(caseOpeningGame.getView());
-        ((LinearLayout) findViewById(R.id.zest)).addView(inventoryGame.getView());
-
-
-        InventoryItemModel inventoryItemModel = Singleton.db.inventoryItemDao().get(1);
-
-        final InventoryItemView inventoryItemView = new InventoryItemView(this, inventoryItemModel);
-
-        ((LinearLayout)findViewById(R.id.sceneMain)).addView(inventoryItemView.getView());
-
-        inventoryItemView.setOnItemClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("item", "clicked");
-            }
-        });
-
-        inventoryItemView.setOnItemSelected(new Runnable() {
-            @Override
-            public void run() {
-                Log.e("item", "onselect");
-
-                inventoryItemView.revertSelection();
-            }
-        });
-
-        inventoryItemView.setOnItemUnSelected(new Runnable() {
-            @Override
-            public void run() {
-                Log.e("item", "on unselect");
-            }
-        });
+//        ((LinearLayout) findViewById(R.id.zest)).addView(inventoryGame.getView());
+//
+//
+//        InventoryItemModel inventoryItemModel = Singleton.db.inventoryItemDao().get(1);
+//
+//        final InventoryItemView inventoryItemView = new InventoryItemView(this, inventoryItemModel);
+//
+//        ((LinearLayout)findViewById(R.id.sceneMain)).addView(inventoryItemView.getView());
+//
+//        inventoryItemView.setOnItemClick(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.e("item", "clicked");
+//            }
+//        });
+//
+//        inventoryItemView.setOnItemSelected(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.e("item", "onselect");
+//
+//                inventoryItemView.revertSelection();
+//            }
+//        });
+//
+//        inventoryItemView.setOnItemUnSelected(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.e("item", "on unselect");
+//            }
+//        });
 
         //inventoryItemView.revertSelection();
 
