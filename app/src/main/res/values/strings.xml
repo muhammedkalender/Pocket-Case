@@ -19,4 +19,6 @@
     <string name="quality_stattrak_field_tested">Field-Tested</string>
     <string name="quality_stattrak_well_worn">StatTrak Well-Worn</string>
     <string name="quality_stattrak_battle_scarred">StatTrak Battle-Scarred</string>
+    <string name="show_item_sell">Sell Item</string>
+    <string name="show_item_close_button">Cancel</string>
 </resources>

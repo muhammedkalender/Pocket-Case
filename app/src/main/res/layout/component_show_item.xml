@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/componentShowItemRoot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="360dp"
+            android:layout_height="420dp"
+            android:layout_centerInParent="true"
+            android:paddingHorizontal="@dimen/activity_horizontal_margin"
+            android:paddingVertical="@dimen/activity_vertical_margin">
+
+            <RelativeLayout
+                android:id="@+id/componentShowItemGraphic"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@color/colorAccent"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/componentShowItemColorBackground"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="15dp"
+                    android:background="@color/colorCommon" />
+
+                <ImageView
+                    android:id="@+id/componentShowItemBackground"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="30dp"
+                    android:background="@color/colorLegendary" />
+
+                <ImageView
+                    android:id="@+id/componentShowItemImage"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/test" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/componentShowItemQualityAndPrice"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_below="@id/componentShowItemGraphic"
+                android:background="@drawable/unique"
+                android:gravity="center"
+                android:text="Field-TEsted - $402.83"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/componentShowItemInfo"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_below="@id/componentShowItemQualityAndPrice"
+                android:background="@drawable/unique"
+                android:gravity="center"
+                android:text="Field-TEsted - $402.83"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/componentShowItemInfo">
+
+                <Button
+                    android:id="@+id/componentShowItemSellButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="SELL ITEM - 1596 $" />
+
+                <Button
+                    android:id="@+id/componentShowItemCloseButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/show_item_close_button" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -2,6 +2,7 @@ package software.kalender.pocketcase.games;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -25,9 +26,16 @@ public class InventoryGame extends GameAbstract {
     public View generateView() {
         this.view = ((Activity) this.context).getLayoutInflater().inflate(R.layout.game_inventory, null);
 
-        InventoryComponent inventoryView = new InventoryComponent(this.context);
+        InventoryComponent inventoryComponent = new InventoryComponent(this.context);
+        inventoryComponent.setSelectedItemEnable(true, 2);
+        inventoryComponent.setOnValidated(() -> Log.e("aaa", "artık okey"));
+        inventoryComponent.setOnCancelValidation(() -> Log.e("aaa", "okeydi ama artık değil"));
+        inventoryComponent.setSelectedBalanceLowerLimit(100L);
+        inventoryComponent.setSelectedBalanceUpperLimit(40000L);
+        inventoryComponent.setShowItemEnable((RelativeLayout)this.view);
 
-        ((RelativeLayout)this.view).addView(inventoryView.getView());
+
+        ((RelativeLayout) this.view).addView(inventoryComponent.getView());
 
         return this.view;
     }

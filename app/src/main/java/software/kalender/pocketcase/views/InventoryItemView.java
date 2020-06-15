@@ -18,6 +18,7 @@ public class InventoryItemView extends ViewAbstract<InventoryItemModel> {
     private View.OnClickListener onItemClick;
     private Runnable onItemSelected, onItemUnSelected;
     private boolean selected = false;
+    private boolean selectable = false;
 
     //endregion
 
@@ -42,23 +43,25 @@ public class InventoryItemView extends ViewAbstract<InventoryItemModel> {
             @Override
             public void onClick(View view) {
                 //TODO
-                if (isSelected()) {
-                    setSelected(false);
+                if (selectable) {
+                    if (isSelected()) {
+                        setSelected(false);
 
-                    InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).setVisibility(View.INVISIBLE);
-                    InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).bringToFront();
+                        InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).setVisibility(View.INVISIBLE);
+                        InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).bringToFront();
 
-                    if (onItemUnSelected != null) {
-                        onItemUnSelected.run();
-                    }
-                } else {
-                    setSelected(true);
+                        if (onItemUnSelected != null) {
+                            onItemUnSelected.run();
+                        }
+                    } else {
+                        setSelected(true);
 
-                    InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).setVisibility(View.VISIBLE);
-                    InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).bringToFront();
+                        InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).setVisibility(View.VISIBLE);
+                        InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).bringToFront();
 
-                    if (onItemSelected != null) {
-                        onItemSelected.run();
+                        if (onItemSelected != null) {
+                            onItemSelected.run();
+                        }
                     }
                 }
 
@@ -88,6 +91,14 @@ public class InventoryItemView extends ViewAbstract<InventoryItemModel> {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public boolean isSelectable() {
+        return selectable;
+    }
+
+    public void setSelectable(boolean selectable) {
+        this.selectable = selectable;
     }
 
     //endregion

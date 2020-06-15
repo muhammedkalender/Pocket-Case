@@ -2,27 +2,40 @@ package software.kalender.pocketcase.components;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridLayout;
+import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+
+import java.util.HashMap;
 import java.util.List;
 
 import software.kalender.pocketcase.R;
 import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.abstracts.ComponentAbstract;
 import software.kalender.pocketcase.models.InventoryItemModel;
+import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.views.InventoryItemView;
 
 public class InventoryComponent extends ComponentAbstract {
-    private boolean itemSelectionEnable = false;
-    private int itemSelectionLimit = 10;
+    private HashMap<Long, InventoryItemModel> selectedItems = new HashMap<>();
+
+    private boolean selectedItemEnable = false;
+    private int selectedItemCountLowerLimit = 0;
+    private int selectedItemCountUpperLimit = 0;
+    private int selectedItemCount = 0;
 
     private boolean itemSelectionBalanceLimit = false;
     private long selectedBalanceLowerLimit = 0L;
     private long selectedBalanceUpperLimit = 0L;
 
     private long selectedItemBalance = 0L;
+
+    private boolean showItemInfo = false;
+    private RelativeLayout showItemInfoLayout = null;
 
     //Gerekli şartları sağlıyorsa
     private Runnable onValidated;
@@ -38,25 +51,33 @@ public class InventoryComponent extends ComponentAbstract {
         super(context, view);
     }
 
-    public boolean isItemSelectionEnable() {
-        return itemSelectionEnable;
+    public boolean isSelectedItemEnable() {
+        return selectedItemEnable;
     }
 
-    public void setItemSelectionEnable(boolean itemSelectionEnable, int itemSelectionLimit) {
-        this.itemSelectionEnable = itemSelectionEnable;
-        this.itemSelectionLimit = itemSelectionLimit;
+    public void setSelectedItemEnable(boolean selectedItemEnable) {
+        this.selectedItemEnable = selectedItemEnable;
     }
 
-    public int getItemSelectionLimit() {
-        return itemSelectionLimit;
+    public void setSelectedItemEnable(boolean selectedItemEnable, int selectedItemCount) {
+        this.selectedItemEnable = selectedItemEnable;
+        this.selectedItemCountUpperLimit = selectedItemCount;
     }
 
-    public void setItemSelectionLimit(int itemSelectionLimit) {
-        this.itemSelectionLimit = itemSelectionLimit;
+    public int getSelectedItemCountLowerLimit() {
+        return selectedItemCountLowerLimit;
     }
 
-    public void setItemSelectionEnable(boolean itemSelectionEnable) {
-        this.itemSelectionEnable = itemSelectionEnable;
+    public void setSelectedItemCountLowerLimit(int selectedItemCountLowerLimit) {
+        this.selectedItemCountLowerLimit = selectedItemCountLowerLimit;
+    }
+
+    public int getSelectedItemCountUpperLimit() {
+        return selectedItemCountUpperLimit;
+    }
+
+    public void setSelectedItemCountUpperLimit(int selectedItemCountUpperLimit) {
+        this.selectedItemCountUpperLimit = selectedItemCountUpperLimit;
     }
 
     public boolean isItemSelectionBalanceLimit() {
@@ -99,17 +120,101 @@ public class InventoryComponent extends ComponentAbstract {
         this.onCancelValidation = onCancelValidation;
     }
 
-    public boolean isValid() {
-        if (getSelectedBalanceLowerLimit() != 0L) {
+    public void setShowItemEnable(RelativeLayout relativeLayout) {
+        showItemInfoLayout = relativeLayout;
+        showItemInfo = true;
+        selectedItemEnable = false;
+    }
 
+    public void setDisableShowItem(){
+        showItemInfo = false;
+    }
+
+    public boolean isValid() {
+        if (selectedItemEnable) {
+            if (selectedItemCountLowerLimit != 0) {
+                if (selectedBalanceLowerLimit > selectedItemCount) {
+                    return false;
+                }
+            }
+
+            if (selectedItemCountUpperLimit != 0) {
+                if (selectedItemCountUpperLimit < selectedItemCount) {
+                    return false;
+                }
+            }
+        }
+
+        if (selectedBalanceLowerLimit != 0L) {
+            if (selectedItemBalance < selectedBalanceLowerLimit) {
+                return false;
+            }
+        }
+
+        if (selectedBalanceUpperLimit != 0L) {
+            if (selectedItemBalance > selectedBalanceUpperLimit) {
+                return false;
+            }
         }
 
         return true;
     }
 
+    public long getSelectedItemBalance() {
+        return selectedItemBalance;
+    }
+
+    public void setSelectedItemBalance(long selectedItemBalance) {
+        boolean beforeTransaction = isValid();
+
+        this.selectedItemBalance = selectedItemBalance;
+
+        if (isValid()) {
+            if (!beforeTransaction) {
+                if (onValidated != null) {
+                    onValidated.run();
+                }
+            }
+        } else {
+            if (beforeTransaction) {
+                if (onCancelValidation != null) {
+                    onCancelValidation.run();
+                }
+            }
+        }
+    }
+
+    private void minusSelectedItemBalance(@NonNull ItemQualityModel itemQualityModel) {
+        setSelectedItemBalance(getSelectedItemBalance() - itemQualityModel.price.getBalance());
+    }
+
+    private void plusSelectedItemBalance(@NonNull ItemQualityModel itemQualityModel) {
+        setSelectedItemBalance(getSelectedItemBalance() + itemQualityModel.price.getBalance());
+    }
+
+    public void addItemToSelected(InventoryItemModel inventoryItemModel) {
+        selectedItems.put(inventoryItemModel.inventoryItemId, inventoryItemModel);
+        selectedItemCount++;
+        plusSelectedItemBalance(inventoryItemModel.quality);
+    }
+
+    public void delItemFromSelected(InventoryItemModel inventoryItemModel) {
+        selectedItems.remove(inventoryItemModel.inventoryItemId);
+        selectedItemCount--;
+        minusSelectedItemBalance(inventoryItemModel.quality);
+    }
+
+    public HashMap<Long, InventoryItemModel> getSelectedItems() {
+        return selectedItems;
+    }
+
+    public void setSelectedItems(HashMap<Long, InventoryItemModel> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
     @Override
     public View generateView() {
-        if(view == null){
+        if (view == null) {
             LayoutInflater layoutInflater = ((Activity) this.context).getLayoutInflater();
 
             this.view = layoutInflater.inflate(R.layout.component_inventory, null);
@@ -123,17 +228,28 @@ public class InventoryComponent extends ComponentAbstract {
         for (InventoryItemModel inventoryItemModel : inventoryItemModels) {
             InventoryItemView inventoryItemView = new InventoryItemView(this.context, inventoryItemModel);
 
-            if (isItemSelectionEnable()) {
-                inventoryItemView.setOnItemSelected(new Runnable() {
-                    @Override
-                    public void run() {
-                        //TODO
+            if (selectedItemEnable) {
+                inventoryItemView.setSelectable(true);
+
+                inventoryItemView.setOnItemSelected(() -> {
+                    if (selectedItemCountUpperLimit != 0 && selectedItemCountUpperLimit <= selectedItemCount) {
+                        inventoryItemView.revertSelection();
+                    } else {
+                        addItemToSelected(inventoryItemModel);
+
+                        Log.e("asda", String.valueOf(selectedItemBalance));
                     }
+
+                    //TODO
                 });
 
                 inventoryItemView.setOnItemUnSelected(new Runnable() {
                     @Override
                     public void run() {
+                        delItemFromSelected(inventoryItemModel);
+
+
+                        Log.e("unslect", String.valueOf(selectedItemBalance));
                         //TODO
                     }
                 });
@@ -142,6 +258,17 @@ public class InventoryComponent extends ComponentAbstract {
                     @Override
                     public void onClick(View view) {
                         //TODO
+                    }
+                });
+            }
+
+            if(showItemInfo && showItemInfoLayout != null){
+                inventoryItemView.setOnItemClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ShowItemComponent showItemComponent = new ShowItemComponent(InventoryComponent.super.context);
+                        showItemInfoLayout.addView(showItemComponent.getView());
+                        showItemComponent.loadInventoryItem(inventoryItemModel);
                     }
                 });
             }
