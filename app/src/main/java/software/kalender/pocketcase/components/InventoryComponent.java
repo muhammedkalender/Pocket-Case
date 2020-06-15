@@ -269,6 +269,12 @@ public class InventoryComponent extends ComponentAbstract {
                         ShowItemComponent showItemComponent = new ShowItemComponent(InventoryComponent.super.context);
                         showItemInfoLayout.addView(showItemComponent.getView());
                         showItemComponent.loadInventoryItem(inventoryItemModel);
+                        showItemComponent.setOnSell(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((GridLayout)inventoryItemView.getView().getParent()).removeView(inventoryItemView.getView());
+                            }
+                        });
                     }
                 });
             }

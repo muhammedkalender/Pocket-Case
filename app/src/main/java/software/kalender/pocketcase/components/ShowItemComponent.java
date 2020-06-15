@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,12 +19,30 @@ import software.kalender.pocketcase.models.InventoryItemModel;
 import software.kalender.pocketcase.models.ItemQualityModel;
 
 public class ShowItemComponent extends ComponentAbstract {
+    public Runnable onSell, onClose;
+
     public ShowItemComponent(Context context) {
         super(context);
     }
 
     public ShowItemComponent(Context context, View view) {
         super(context, view);
+    }
+
+    public Runnable getOnSell() {
+        return onSell;
+    }
+
+    public void setOnSell(Runnable onSell) {
+        this.onSell = onSell;
+    }
+
+    public Runnable getOnClose() {
+        return onClose;
+    }
+
+    public void setOnClose(Runnable onClose) {
+        this.onClose = onClose;
     }
 
     @Override
@@ -54,6 +73,9 @@ public class ShowItemComponent extends ComponentAbstract {
 
 
                 Log.e("aa", "ddd");
+                if(onClose != null){
+                    onClose.run();
+                }
             }
         });
 
@@ -66,7 +88,14 @@ public class ShowItemComponent extends ComponentAbstract {
                 Singleton.userHelper.sumBalance(inventoryItemModel.quality.price);
 
 
+                //TODO LOG
+                Singleton.db.inventoryItemDao().passive(inventoryItemModel.inventoryItemId);
+
                 ((RelativeLayout)ShowItemComponent.this.view.getParent()).removeView(ShowItemComponent.this.view);
+
+                if(onSell != null){
+                    onSell.run();
+                }
                 Log.e("asda", "moruq");
             }
         });

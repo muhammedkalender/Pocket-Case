@@ -72,9 +72,18 @@ public class InventoryItemView extends ViewAbstract<InventoryItemModel> {
         });
 
         ((TextView) view.findViewById(R.id.componentInventoryItemQuality)).setText(model.quality.quality);
+        view.findViewById(R.id.componentInventoryItemQuality).setBackgroundColor(model.quality.skin.color.color());
         ((TextView) view.findViewById(R.id.componentInventoryItemName)).setText(model.quality.skin.item.name);
+        view.findViewById(R.id.componentInventoryItemName).setBackgroundColor(model.quality.skin.color.color());
         ((TextView) view.findViewById(R.id.componentInventoryItemSkin)).setText(model.quality.skin.name);
+        view.findViewById(R.id.componentInventoryItemSkin).setBackgroundColor(model.quality.skin.color.color());
         ((TextView) view.findViewById(R.id.componentInventoryItemPrice)).setText(model.quality.price.getFormattedText());
+
+        if(model.quality.statTrak){
+            view.findViewById(R.id.componentInventoryItemStattrak).setVisibility(View.VISIBLE);
+        }else{
+            view.findViewById(R.id.componentInventoryItemStattrak).setVisibility(View.GONE);
+        }
 
         view.setTag(model.inventoryItemId);
 
