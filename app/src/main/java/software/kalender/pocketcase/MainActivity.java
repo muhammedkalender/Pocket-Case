@@ -72,16 +72,11 @@ public class MainActivity extends AppCompatActivity {
             Singleton.configHelper.setBoolean("first_open", false);
         }
 
-        //TODO CaseOpeningGame caseOpeningGame = new CaseOpeningGame(this);
-        InventoryGame inventoryGame = new InventoryGame(this);
-        ((LinearLayout)findViewById(R.id.sceneMain)).addView(inventoryGame.getView());
-        ((LinearLayout)findViewById(R.id.sceneMain)).setBackgroundColor(Color.parseColor("#000000"));
-        new Runnable() {
-            @Override
-            public void run() {
+//        CaseOpeningGame caseOpeningGame = new CaseOpeningGame(this);
+//        ((LinearLayout) findViewById(R.id.sceneMain)).addView(caseOpeningGame.getView());
 
-            }
-        }.run();
+        InventoryGame inventoryGame = new InventoryGame(this);
+        ((LinearLayout) findViewById(R.id.sceneMain)).addView(inventoryGame.getView());
 
 
         // CaseSelectingComponent caseSelectingComponent = new CaseSelectingComponent(this);

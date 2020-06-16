@@ -11,6 +11,8 @@
         <RelativeLayout
             android:id="@+id/componentCaseSelectScrollParent"
             android:layout_width="408dp"
+            android:clickable="false"
+            android:focusable="false"
             android:layout_height="152dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
@@ -47,8 +49,8 @@
                 android:id="@+id/componentCaseScrollRouletteUp"
                 android:layout_width="match_parent"
                 android:layout_height="136dp"
-                android:clickable="false"
-                android:focusable="false"
+                android:clickable="true"
+                android:focusable="true"
                 android:scaleType="fitXY"
                 android:src="@mipmap/rulette_up"
                 android:visibility="invisible" />
