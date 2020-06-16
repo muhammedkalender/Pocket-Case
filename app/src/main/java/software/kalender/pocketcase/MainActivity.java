@@ -1,33 +1,24 @@
 package software.kalender.pocketcase;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
+import androidx.paging.LivePagedListBuilder;
 import androidx.room.Room;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import java.util.List;
 import java.util.Random;
 
+import software.kalender.pocketcase.abstracts.GameAbstract;
 import software.kalender.pocketcase.chances.ItemQualityChance;
-import software.kalender.pocketcase.components.CaseSelectingComponent;
 import software.kalender.pocketcase.database.AppDatabase;
 import software.kalender.pocketcase.enums.CaseSpecialEnum;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.enums.ItemQualityEnum;
-import software.kalender.pocketcase.games.CaseOpeningGame;
 import software.kalender.pocketcase.games.InventoryGame;
 import software.kalender.pocketcase.helpers.ConfigHelper;
 import software.kalender.pocketcase.helpers.LogHelper;
@@ -37,15 +28,12 @@ import software.kalender.pocketcase.helpers.UserHelper;
 import software.kalender.pocketcase.helpers.XPHelper;
 import software.kalender.pocketcase.models.CaseChanceModel;
 import software.kalender.pocketcase.models.CaseModel;
-import software.kalender.pocketcase.models.InventoryItemModel;
 import software.kalender.pocketcase.models.ItemModel;
 import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
 import software.kalender.pocketcase.models.ItemTypeModel;
 import software.kalender.pocketcase.models.KeyModel;
 import software.kalender.pocketcase.models.UserModel;
-import software.kalender.pocketcase.views.CaseSelectItemCaseView;
-import software.kalender.pocketcase.views.InventoryItemView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,6 +67,13 @@ public class MainActivity extends AppCompatActivity {
         ((LinearLayout) findViewById(R.id.sceneMain)).addView(inventoryGame.getView());
 
 
+        Object a = Singleton.db.inventoryItemDao().listFromStattrakWithPagination(false, 100, 0);
+        Object b = Singleton.db.inventoryItemDao().listFromStattrakWithPagination(true, 100, 0);
+        Object c = Singleton.db.inventoryItemDao().listFromStattrakAndColorWithPagination(false, ColorEnum.MYTHICAL, 100, 0);
+
+        int d = Singleton.db.inventoryItemDao().count();
+        int e = Singleton.db.inventoryItemDao().countFromStattrak(false);
+        int f = Singleton.db.inventoryItemDao().countFromStattrak(true);
         // CaseSelectingComponent caseSelectingComponent = new CaseSelectingComponent(this);
 
 

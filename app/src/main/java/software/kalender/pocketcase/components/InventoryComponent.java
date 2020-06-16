@@ -16,6 +16,7 @@ import java.util.List;
 import software.kalender.pocketcase.R;
 import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.abstracts.ComponentAbstract;
+import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.models.InventoryItemModel;
 import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.views.InventoryItemView;
@@ -126,7 +127,7 @@ public class InventoryComponent extends ComponentAbstract {
         selectedItemEnable = false;
     }
 
-    public void setDisableShowItem(){
+    public void setDisableShowItem() {
         showItemInfo = false;
     }
 
@@ -224,7 +225,6 @@ public class InventoryComponent extends ComponentAbstract {
 
         List<InventoryItemModel> inventoryItemModels = Singleton.db.inventoryItemDao().list();
 
-
         for (InventoryItemModel inventoryItemModel : inventoryItemModels) {
             InventoryItemView inventoryItemView = new InventoryItemView(this.context, inventoryItemModel);
 
@@ -262,7 +262,7 @@ public class InventoryComponent extends ComponentAbstract {
                 });
             }
 
-            if(showItemInfo && showItemInfoLayout != null){
+            if (showItemInfo && showItemInfoLayout != null) {
                 inventoryItemView.setOnItemClick(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -272,7 +272,7 @@ public class InventoryComponent extends ComponentAbstract {
                         showItemComponent.setOnSell(new Runnable() {
                             @Override
                             public void run() {
-                                ((GridLayout)inventoryItemView.getView().getParent()).removeView(inventoryItemView.getView());
+                                ((GridLayout) inventoryItemView.getView().getParent()).removeView(inventoryItemView.getView());
                             }
                         });
                     }
