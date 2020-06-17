@@ -21,4 +21,9 @@
     <string name="quality_stattrak_battle_scarred">StatTrak Battle-Scarred</string>
     <string name="show_item_sell">Sell Item</string>
     <string name="show_item_close_button">Cancel</string>
+    <string name="stattrak">Stattrak</string>
+    <string name="Rarity">Rarity</string>
+    <string name="item_type">Item Type</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
 </resources>

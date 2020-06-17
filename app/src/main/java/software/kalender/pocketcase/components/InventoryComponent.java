@@ -24,6 +24,7 @@ import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.helpers.MoneyHelper;
 import software.kalender.pocketcase.models.InventoryItemModel;
 import software.kalender.pocketcase.models.ItemQualityModel;
+import software.kalender.pocketcase.models.ItemTypeModel;
 import software.kalender.pocketcase.views.InventoryItemView;
 
 public class InventoryComponent extends ComponentAbstract {
@@ -45,14 +46,21 @@ public class InventoryComponent extends ComponentAbstract {
 
     //region Filter Variables
 
+    private boolean filterEnable = false;
+    private boolean filterPaginationEnable = false;
+
     private Boolean filterStattrak;
-    private Integer filterItemType;
+    private Long filterItemType;
     private ColorEnum filterColor;
+
+    //Background filters
+    private Long filterCase;
 
     private int filterCurrentPage = 0;
     private int filterTotalPage = 0;
     private int filterPageCount = 9;
     private int filterTotalCount = 0;
+    private String filterOrderBy = "itemSkinColor";
 
     private List<InventoryItemModel> filterItems;
 
@@ -63,6 +71,8 @@ public class InventoryComponent extends ComponentAbstract {
 
     //Gerekli şartları sağlıyordu ama şimdi sağlamıyor
     private Runnable onCancelValidation;
+
+    private Runnable onFilterReset;
 
     public InventoryComponent(Context context) {
         super(context);
@@ -99,6 +109,54 @@ public class InventoryComponent extends ComponentAbstract {
 
     public void setSelectedItemCountUpperLimit(int selectedItemCountUpperLimit) {
         this.selectedItemCountUpperLimit = selectedItemCountUpperLimit;
+    }
+
+    public boolean isShowItemInfo() {
+        return showItemInfo;
+    }
+
+    public void setShowItemInfo(boolean showItemInfo) {
+        this.showItemInfo = showItemInfo;
+    }
+
+    public Long getFilterCase() {
+        return filterCase;
+    }
+
+    public void setFilterCase(Long filterCase) {
+        this.filterCase = filterCase;
+    }
+
+    public String getFilterOrderBy() {
+        return filterOrderBy;
+    }
+
+    public void setFilterOrderBy(String filterOrderBy) {
+        this.filterOrderBy = filterOrderBy;
+    }
+
+    public Runnable getOnFilterReset() {
+        return onFilterReset;
+    }
+
+    public void setOnFilterReset(Runnable onFilterReset) {
+        this.onFilterReset = onFilterReset;
+    }
+
+    public boolean isFilterEnable() {
+        return filterEnable;
+    }
+
+    public void setFilterEnable(boolean filterEnable) {
+        this.filterEnable = filterEnable;
+    }
+
+    public boolean isFilterPaginationEnable() {
+        return filterPaginationEnable;
+    }
+
+    public void setFilterPaginationEnable(boolean filterPaginationEnable) {
+        this.filterPaginationEnable = filterPaginationEnable;
     }
 
     public boolean isItemSelectionBalanceLimit() {
@@ -234,6 +292,22 @@ public class InventoryComponent extends ComponentAbstract {
     }
 
     public List<InventoryItemModel> filter() {
+        return filter(true);
+    }
+
+    public List<InventoryItemModel> filter(boolean chanceFilter) {
+        if (chanceFilter) {
+            //TODO
+            selectedItems.clear();
+            selectedItemCount = 0;
+            selectedItemBalance = 0;
+            filterCurrentPage = 0;
+
+            if (onFilterReset != null) {
+                onFilterReset.run();
+            }
+        }
+
         String query = "";
 
         if (filterStattrak != null) {
@@ -248,13 +322,17 @@ public class InventoryComponent extends ComponentAbstract {
             query += " AND itemTypeId = " + filterItemType;
         }
 
-        String suffix = " ORDER BY itemSkinColor DESC LIMIT " + filterPageCount + " OFFSET " + (filterCurrentPage * filterPageCount);
+        if(filterCase != null){
+            query += " AND item caseId = " + filterCase;
+        }
+
+        String suffix = " ORDER BY " + filterOrderBy + " DESC LIMIT " + filterPageCount + " OFFSET " + (filterCurrentPage * filterPageCount);
 
         filterItems = Singleton.db.inventoryItemDao().listQueryWithPagination(new SimpleSQLiteQuery("SELECT * FROM inventoryItems WHERE inventoryItemActive = 1 " + query + suffix));
         filterTotalCount = Singleton.db.inventoryItemDao().countQuery(new SimpleSQLiteQuery("SELECT COUNT(*) FROM inventoryItems WHERE inventoryItemActive = 1 " + query));
 
         if (filterTotalCount == 0) {
-            filterTotalPage = 0;
+            filterTotalPage = 1;
         } else {
             float page = (float) (filterTotalCount) / (float) (filterPageCount);
 
@@ -292,7 +370,7 @@ public class InventoryComponent extends ComponentAbstract {
 
                 String[] choices = new String[]{"Farketmez", "Evet", "Hayır"};
 
-                builderSingle.setSingleChoiceItems(choices, 0, (dialog, which) -> {
+                builderSingle.setSingleChoiceItems(choices, filterStattrak == null ? 0 : (filterStattrak ? 1 : 2), (dialog, which) -> {
                     dialog.dismiss();
 
                     switch (which) {
@@ -300,10 +378,10 @@ public class InventoryComponent extends ComponentAbstract {
                             filterStattrak = null;
                             break;
                         case 1:
-                            filterStattrak = false;
+                            filterStattrak = true;
                             break;
                         case 2:
-                            filterStattrak = true;
+                            filterStattrak = false;
                             break;
                     }
 
@@ -329,11 +407,17 @@ public class InventoryComponent extends ComponentAbstract {
                 String[] choices = new String[ColorEnum.values().length + 1];
                 choices[0] = "heosş"; //todo
 
+                int index = 0;
+
                 for (int i = 0; i < choices.length - 1; i++) {
                     choices[i + 1] = ColorEnum.values()[i].name();
+
+                    if (filterColor != null && ColorEnum.values()[i] == filterColor) {
+                        index = i + 1;
+                    }
                 }
 
-                builderSingle.setSingleChoiceItems(choices, 0, (dialog, which) -> {
+                builderSingle.setSingleChoiceItems(choices, index, (dialog, which) -> {
                     dialog.dismiss();
 
                     if (which == 0) {
@@ -353,6 +437,53 @@ public class InventoryComponent extends ComponentAbstract {
                 builderSingle.show();
             }
         });
+
+        this.view.findViewById(R.id.componentInventoryFilterItemType).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(context);
+                //builderSingle.setIcon(R.drawable.ic_format_list_bulleted_24dp);
+                builderSingle.setTitle("TODO");
+
+                List<ItemTypeModel> itemTypeModels = Singleton.db.itemTypeDao().list();
+
+                String[] choices = new String[itemTypeModels.size() + 1];
+                choices[0] = "Hepsi"; //todo
+
+                int index = 0;
+
+                for (int i = 0; i < choices.length - 1; i++) {
+                    choices[i + 1] = itemTypeModels.get(i).name;
+
+                    if (filterItemType != null && filterItemType == itemTypeModels.get(i).itemTypeId) {
+                        index = i + 1;
+                    }
+                }
+
+                builderSingle.setSingleChoiceItems(choices, index, (dialog, which) -> {
+                    dialog.dismiss();
+
+                    if (which == 0) {
+                        filterItemType = null;
+                    } else {
+                        filterItemType = itemTypeModels.get(which - 1).itemTypeId;
+                    }
+
+                    filter();
+                    refreshUI();
+
+                    Log.e("asda", which + "--");
+                });
+
+                builderSingle.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+                builderSingle.show();
+            }
+        });
+
+        this.view.findViewById(R.id.componentInventoryFilterPanel).setVisibility(filterEnable ? View.VISIBLE : View.GONE);
+        this.view.findViewById(R.id.componentInventoryPaginationMovePanel).setVisibility(filterPaginationEnable ? View.VISIBLE : View.GONE); //TODO
+        this.view.findViewById(R.id.componentInventoryPaginationInfoPanel).setVisibility(filterPaginationEnable ? View.VISIBLE : View.GONE); //TODO
 
         return this.view;
     }
@@ -420,6 +551,10 @@ public class InventoryComponent extends ComponentAbstract {
 
             View _view = inventoryItemView.getView();
 
+            if (selectedItems.get(inventoryItemModel.inventoryItemId) != null) {
+                inventoryItemView.setSelected(true);
+            }
+
             ((GridLayout) this.view.findViewById(R.id.componentInventoryGrid)).addView(_view);
         }
 
@@ -448,7 +583,7 @@ public class InventoryComponent extends ComponentAbstract {
 
         filterCurrentPage++;
 
-        filter();
+        filter(false);
         refreshUI();
 
         //TODO
@@ -461,7 +596,7 @@ public class InventoryComponent extends ComponentAbstract {
 
         filterCurrentPage--;
 
-        filter();
+        filter(false);
         refreshUI();
 
         //TODO

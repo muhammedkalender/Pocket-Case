@@ -85,10 +85,17 @@ public enum CurrencyEnum {
                     symbol()
             );
         } else {
-            return String.format("0.%1$s %1$s",
-                    amount,
-                    symbol()
-            );
+            if (amount < 10) {
+                return String.format("0.0%1$s %2$s",
+                        amount,
+                        symbol()
+                );
+            } else {
+                return String.format("0.%1$s %2$s",
+                        amount,
+                        symbol()
+                );
+            }
         }
     }
 
@@ -109,7 +116,7 @@ public enum CurrencyEnum {
         }
     }
 
-    public Long awardedVideoAmount(){
+    public Long awardedVideoAmount() {
         return 5000L;
     }
 }

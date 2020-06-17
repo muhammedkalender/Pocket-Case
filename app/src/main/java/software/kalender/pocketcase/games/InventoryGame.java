@@ -32,7 +32,10 @@ public class InventoryGame extends GameAbstract {
         inventoryComponent.setOnCancelValidation(() -> Log.e("aaa", "okeydi ama artık değil"));
         inventoryComponent.setSelectedBalanceLowerLimit(100L);
         inventoryComponent.setSelectedBalanceUpperLimit(40000L);
-        inventoryComponent.setShowItemEnable((RelativeLayout)this.view);
+        inventoryComponent.setFilterEnable(true);
+        inventoryComponent.setFilterPaginationEnable(true);
+        //inventoryComponent.setShowItemEnable((RelativeLayout)this.view);
+        inventoryComponent.setSelectedItemEnable(true, 5);
 
         ((RelativeLayout) this.view).addView(inventoryComponent.getView());
 

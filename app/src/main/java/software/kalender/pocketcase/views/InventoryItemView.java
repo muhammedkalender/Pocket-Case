@@ -99,6 +99,14 @@ public class InventoryItemView extends ViewAbstract<InventoryItemModel> {
     }
 
     public void setSelected(boolean selected) {
+        if(selected){
+            InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).setVisibility(View.VISIBLE);
+            InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).bringToFront();
+        }else{
+            InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).setVisibility(View.INVISIBLE);
+            InventoryItemView.this.view.findViewById(R.id.componentInventoryItemSelected).bringToFront();
+        }
+
         this.selected = selected;
     }
 
