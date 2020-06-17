@@ -12,6 +12,7 @@ import software.kalender.pocketcase.models.ItemSkinModel;
 import software.kalender.pocketcase.models.ItemTypeModel;
 import software.kalender.pocketcase.models.KeyModel;
 import software.kalender.pocketcase.models.RankModel;
+import software.kalender.pocketcase.models.StaticModel;
 import software.kalender.pocketcase.models.UserModel;
 
 @Database(entities = {
@@ -23,7 +24,8 @@ import software.kalender.pocketcase.models.UserModel;
         ItemTypeModel.class,
         KeyModel.class,
         UserModel.class,
-        RankModel.class
+        RankModel.class,
+        StaticModel.class
 }, version = 1)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
@@ -44,4 +46,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
 
     public abstract RankDao rankDao();
+
+    public abstract StaticDao staticDao();
 }
