@@ -13,7 +13,7 @@ public class UserHelper {
     }
 
     public UserModel minusBalance(long amount) {
-        Singleton.user.addBalance(amount);
+        Singleton.user.delBalance(amount);
 
         updateBalance();
 
@@ -25,7 +25,7 @@ public class UserHelper {
     }
 
     public UserModel sumBalance(long amount) {
-        Singleton.user.delBalance(amount);
+        Singleton.user.addBalance(amount);
 
         updateBalance();
 
@@ -44,5 +44,7 @@ public class UserHelper {
 
     public void setHeaderTextView(TextView headerTextView) {
         this.headerTextView = headerTextView;
+
+        updateBalance();
     }
 }

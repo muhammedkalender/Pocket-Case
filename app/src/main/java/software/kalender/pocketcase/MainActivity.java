@@ -63,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
             Singleton.configHelper.setBoolean("first_open", false);
         }
 
+        Singleton.user = Singleton.db.userDao().defaultUser();
+        Singleton.userHelper = new UserHelper();
+        Singleton.userHelper.setHeaderTextView(findViewById(R.id.tv));
+
 
         findViewById(R.id.btnInventory).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,8 +137,7 @@ public class MainActivity extends AppCompatActivity {
         //inventoryItemView.revertSelection();
 
 
-        Singleton.user = Singleton.db.userDao().defaultUser();
-        Singleton.userHelper = new UserHelper();
+
 //
 //        for (CaseModel caseModel : caseModelList) {
 //            Log.e("aaa", caseModel.name);

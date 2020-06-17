@@ -78,23 +78,37 @@ public enum CurrencyEnum {
     public String formatWithSymbol(Long amount) {
         String _amount = amount.toString();
 
-        if (amount > 100) {
+        if (amount > 100 || amount < -10) {
             return String.format("%1$s.%2$s %3$s",
                     _amount.substring(0, _amount.length() - 2),
                     _amount.substring(_amount.length() - 2, _amount.length()),
                     symbol()
             );
         } else {
-            if (amount < 10) {
-                return String.format("0.0%1$s %2$s",
-                        amount,
-                        symbol()
-                );
-            } else {
-                return String.format("0.%1$s %2$s",
-                        amount,
-                        symbol()
-                );
+            if (amount > 0) {
+                if (amount < 10) {
+                    return String.format("0.0%1$s %2$s",
+                            amount,
+                            symbol()
+                    );
+                } else {
+                    return String.format("0.%1$s %2$s",
+                            amount,
+                            symbol()
+                    );
+                }
+            }else{
+                if (amount > -10) {
+                    return String.format("0.0%1$s %2$s",
+                            amount * -1,
+                            symbol()
+                    );
+                } else {
+                    return String.format("0.%1$s %2$s",
+                            amount * -1,
+                            symbol()
+                    );
+                }
             }
         }
     }
