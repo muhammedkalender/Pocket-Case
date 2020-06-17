@@ -85,6 +85,8 @@ public class CaseOpeningGame extends GameAbstract {
 
                 final ViewHelper viewHelper = new ViewHelper();
 
+                caseOpeningScrollComponent.reset();
+
                 caseOpeningScrollComponent.setOnStart(new Runnable() {
                     @Override
                     public void run() {

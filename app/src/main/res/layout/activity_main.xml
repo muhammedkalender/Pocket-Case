@@ -7,12 +7,30 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/zest"
-
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
 
+        <Button
+            android:id="@+id/btnInventory"
+            android:text="Inven"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Button>
+
+        <Button
+            android:id="@+id/btnCase"
+            android:text="Case"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Button>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sceneMain">
+
+        </RelativeLayout>
     </LinearLayout>
+
+
 </RelativeLayout>

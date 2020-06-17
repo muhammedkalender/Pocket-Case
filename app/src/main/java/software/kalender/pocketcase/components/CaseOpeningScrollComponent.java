@@ -76,6 +76,11 @@ public class CaseOpeningScrollComponent extends ComponentAbstract {
         return true; //TODO
     }
 
+    public void reset(){
+        ((LinearLayout)view.findViewById(R.id.componentCaseScrollScrollList)).removeAllViews();
+        scrollView.setScrollX(0);
+    }
+
     public boolean play(){
         scrollView.setScrollX(0);
 

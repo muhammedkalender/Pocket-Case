@@ -34,7 +34,6 @@ public class InventoryGame extends GameAbstract {
         inventoryComponent.setSelectedBalanceUpperLimit(40000L);
         inventoryComponent.setShowItemEnable((RelativeLayout)this.view);
 
-
         ((RelativeLayout) this.view).addView(inventoryComponent.getView());
 
         return this.view;

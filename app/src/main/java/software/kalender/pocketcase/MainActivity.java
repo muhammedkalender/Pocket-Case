@@ -7,7 +7,9 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.room.Room;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.Random;
 
@@ -19,6 +21,7 @@ import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.enums.ItemQualityEnum;
+import software.kalender.pocketcase.games.CaseOpeningGame;
 import software.kalender.pocketcase.games.InventoryGame;
 import software.kalender.pocketcase.helpers.ConfigHelper;
 import software.kalender.pocketcase.helpers.LogHelper;
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.game_inventory); //TODO
+        setContentView(R.layout.activity_main); //TODO
 
 
         Singleton.log = new LogHelper();
@@ -60,12 +63,28 @@ public class MainActivity extends AppCompatActivity {
             Singleton.configHelper.setBoolean("first_open", false);
         }
 
-//        CaseOpeningGame caseOpeningGame = new CaseOpeningGame(this);
-//        ((LinearLayout) findViewById(R.id.sceneMain)).addView(caseOpeningGame.getView());
 
-        InventoryGame inventoryGame = new InventoryGame(this);
-        ((LinearLayout) findViewById(R.id.sceneMain)).addView(inventoryGame.getView());
+        findViewById(R.id.btnInventory).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((RelativeLayout) findViewById(R.id.sceneMain)).removeAllViews();
 
+                CaseOpeningGame caseOpeningGame = new CaseOpeningGame(MainActivity.this);
+                ((RelativeLayout) findViewById(R.id.sceneMain)).addView(caseOpeningGame.getView());
+
+            }
+        });
+
+        findViewById(R.id.btnCase).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((RelativeLayout) findViewById(R.id.sceneMain)).removeAllViews();
+
+                InventoryGame inventoryGame = new InventoryGame(MainActivity.this);
+                ((RelativeLayout) findViewById(R.id.sceneMain)).addView(inventoryGame.getView());
+
+            }
+        });
 
         Object a = Singleton.db.inventoryItemDao().listFromStattrakWithPagination(false, 100, 0);
         Object b = Singleton.db.inventoryItemDao().listFromStattrakWithPagination(true, 100, 0);

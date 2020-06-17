@@ -3,6 +3,8 @@ package software.kalender.pocketcase.database;
 import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Query;
+import androidx.room.RawQuery;
+import androidx.sqlite.db.SupportSQLiteQuery;
 
 import java.util.List;
 
@@ -28,6 +30,9 @@ public interface InventoryItemDao extends DaoInterface<InventoryItemModel> {
 
     @Query("SELECT * FROM inventoryItems WHERE inventoryItemActive = 1 ORDER BY itemSkinColor DESC")
     public List<InventoryItemModel> list();
+
+    @RawQuery(observedEntities = InventoryItemModel.class)
+    public List<InventoryItemModel> listQueryWithPagination(SupportSQLiteQuery query);
 
     @Query("SELECT * FROM inventoryItems WHERE inventoryItemActive = 1 ORDER BY itemSkinColor DESC LIMIT :count OFFSET :skip")
     public List<InventoryItemModel> listWithPagination(int count, int skip);
@@ -59,6 +64,9 @@ public interface InventoryItemDao extends DaoInterface<InventoryItemModel> {
 
     @Query("SELECT COUNT(*) FROM inventoryItems WHERE inventoryItemActive = 1")
     public int count();
+
+    @RawQuery(observedEntities = InventoryItemModel.class)
+    public int countQuery(SupportSQLiteQuery query);
 
     @Query("SELECT COUNT(*) FROM inventoryItems WHERE inventoryItemActive = 1 AND itemQualityStatTrak = :stattrak")
     public int countFromStattrak(boolean stattrak);
