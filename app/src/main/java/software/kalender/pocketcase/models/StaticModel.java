@@ -6,18 +6,26 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.enums.StaticEnum;
 
 @Entity(tableName = "statics")
 public class StaticModel {
     @ColumnInfo(name = "staticId")
     @PrimaryKey(autoGenerate = true)
-    public Long staticId;
+    public long staticId;
 
-    @ColumnInfo(name = "staticKey")
-    public String staticKey;
+    @ColumnInfo(name = "staticEnum")
+    public StaticEnum staticEnum;
 
     @ColumnInfo(name = "staticValue")
-    public Long staticValue;
+    public long staticValue = 0L;
+
+    @Ignore
+    public StaticModel insert() {
+        this.staticId = Singleton.db.staticDao().insert(this);
+
+        return this;
+    }
 
     @Ignore
     public StaticModel update(){
@@ -28,6 +36,7 @@ public class StaticModel {
 
     @Ignore
     public StaticModel increment(long value){
+        //TODO Bİitip bitmediğine bak
         this.staticValue += value;
 
         return this.update();
@@ -35,8 +44,33 @@ public class StaticModel {
 
     @Ignore
     public StaticModel decrement(long value){
+        //TODO Bİitip bitmediğine bak
         this.staticValue -= value;
 
         return this.update();
+    }
+
+    @Ignore
+    public StaticModel max(long value){
+        //TODO Bİitip bitmediğine bak
+        if(value > this.staticValue){
+            this.staticValue = value;
+
+            return this.update();
+        }
+
+        return this;
+    }
+
+    @Ignore
+    public StaticModel min(long value){
+        //TODO Bİitip bitmediğine bak
+        if(value < this.staticValue){
+            this.staticValue = value;
+
+            return this.update();
+        }
+
+        return this;
     }
 }

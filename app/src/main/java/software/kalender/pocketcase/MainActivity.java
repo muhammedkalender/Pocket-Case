@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.util.List;
 import java.util.Random;
 
 import software.kalender.pocketcase.abstracts.GameAbstract;
@@ -21,6 +22,7 @@ import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.enums.ItemQualityEnum;
+import software.kalender.pocketcase.enums.StaticEnum;
 import software.kalender.pocketcase.games.CaseOpeningGame;
 import software.kalender.pocketcase.games.InventoryGame;
 import software.kalender.pocketcase.helpers.ConfigHelper;
@@ -29,6 +31,8 @@ import software.kalender.pocketcase.helpers.MoneyHelper;
 import software.kalender.pocketcase.helpers.ResourceHelper;
 import software.kalender.pocketcase.helpers.UserHelper;
 import software.kalender.pocketcase.helpers.XPHelper;
+import software.kalender.pocketcase.models.AchievementModel;
+import software.kalender.pocketcase.models.AchievementRequestModel;
 import software.kalender.pocketcase.models.CaseChanceModel;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.ItemModel;
@@ -36,6 +40,7 @@ import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
 import software.kalender.pocketcase.models.ItemTypeModel;
 import software.kalender.pocketcase.models.KeyModel;
+import software.kalender.pocketcase.models.StaticModel;
 import software.kalender.pocketcase.models.UserModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -97,6 +102,20 @@ public class MainActivity extends AppCompatActivity {
         int d = Singleton.db.inventoryItemDao().count();
         int e = Singleton.db.inventoryItemDao().countFromStattrak(false);
         int f = Singleton.db.inventoryItemDao().countFromStattrak(true);
+
+        List<StaticModel> staticModels = Singleton.db.staticDao().list();
+        List<AchievementModel> achievementModels = Singleton.db.achievementDao().list();
+        List<AchievementRequestModel> achievementRequestModels = Singleton.db.achievementRequestDao().list();
+        AchievementRequestModel[] achievementRequestModels1 = achievementModels.get(0).getAchievementRequests();
+        AchievementRequestModel[] achievementRequestModels2 = achievementModels.get(1).getAchievementRequests();
+
+        AchievementModel achievementModel = achievementModels.get(0);
+        AchievementRequestModel request = achievementModel.getAchievementRequests()[0];
+        boolean status = request.isCompleted();
+
+       // request.requestStatic.increment(1500); //TODO
+
+
         // CaseSelectingComponent caseSelectingComponent = new CaseSelectingComponent(this);
 
 
@@ -135,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
         //inventoryItemView.revertSelection();
-
 
 
 //
@@ -200,6 +218,33 @@ public class MainActivity extends AppCompatActivity {
                     itemQualityModel.insert();
                 }
             }
+        }
+
+        for (StaticEnum staticEnum : StaticEnum.values()) {
+            StaticModel staticModel = new StaticModel();
+            staticModel.staticEnum = staticEnum;
+            staticModel.insert();
+
+            AchievementModel achievementModel = new AchievementModel();
+            achievementModel.icon = "TODO";
+            achievementModel.nameCode = "CODE_TODO";
+            achievementModel.prizeMoney = new MoneyHelper(CurrencyEnum.USD, 150L);
+            achievementModel.prizeXP = 50;
+            achievementModel.insert();
+
+            AchievementRequestModel achievementRequestModel1 = new AchievementRequestModel();
+            achievementRequestModel1.achievementId = achievementModel.achievementId;
+            achievementRequestModel1.requestTarget = 500;
+            achievementRequestModel1.requestStatic = staticModel;
+            achievementRequestModel1.requestLive = true;
+            achievementRequestModel1.insert();
+
+            AchievementRequestModel achievementRequestModel = new AchievementRequestModel();
+            achievementRequestModel.achievementId = achievementModel.achievementId;
+            achievementRequestModel.requestTarget = 1000;
+            achievementRequestModel.requestStatic = staticModel;
+            achievementRequestModel.requestLive = false;
+            achievementRequestModel.insert();
         }
 
         return true;

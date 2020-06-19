@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.room.TypeConverter;
 
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.chances.ItemQualityChance;
@@ -14,9 +16,11 @@ import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.enums.ItemQualityEnum;
+import software.kalender.pocketcase.enums.StaticEnum;
 import software.kalender.pocketcase.helpers.MoneyHelper;
 import software.kalender.pocketcase.helpers.RankHelper;
 import software.kalender.pocketcase.helpers.XPHelper;
+import software.kalender.pocketcase.models.AchievementRequestModel;
 import software.kalender.pocketcase.models.CaseChanceModel;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.InventoryItemModel;
@@ -25,6 +29,7 @@ import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
 import software.kalender.pocketcase.models.ItemTypeModel;
 import software.kalender.pocketcase.models.KeyModel;
+import software.kalender.pocketcase.models.StaticModel;
 
 //https://developer.android.com/training/data-storage/room/referencing-data
 public class Converters {
@@ -237,12 +242,12 @@ public class Converters {
     //region Item Quality
 
     @TypeConverter
-    public static int itemQualityToIndex(@NonNull ItemQualityEnum itemQualityEnum){
+    public static int itemQualityToIndex(@NonNull ItemQualityEnum itemQualityEnum) {
         return itemQualityEnum.ordinal();
     }
 
     @TypeConverter
-    public static ItemQualityEnum itemQualityFromIndex(int index){
+    public static ItemQualityEnum itemQualityFromIndex(int index) {
         return ItemQualityEnum.values()[index];
     }
 
@@ -265,12 +270,12 @@ public class Converters {
     //region XO Helper
 
     @TypeConverter
-    public static long XPHelperToXP(@NonNull XPHelper xpHelper){
+    public static long XPHelperToXP(@NonNull XPHelper xpHelper) {
         return xpHelper.getXP();
     }
 
     @TypeConverter
-    public static XPHelper XPHelperFromXP(long xp){
+    public static XPHelper XPHelperFromXP(long xp) {
         return new XPHelper(xp);
     }
 
@@ -279,14 +284,60 @@ public class Converters {
     //region Rank Helper
 
     @TypeConverter
-    public static long RankToInventoryValue(@NonNull RankHelper rankHelper){
+    public static long RankToInventoryValue(@NonNull RankHelper rankHelper) {
         return rankHelper.getInventoryValue();
     }
 
     @TypeConverter
-    public static RankHelper RankFromInventoryValue(long inventoryValue){
+    public static RankHelper RankFromInventoryValue(long inventoryValue) {
         return new RankHelper(inventoryValue);
     }
+
+    //endregion
+
+    //region Static Enum
+
+    @TypeConverter
+    public static int staticEnumToIndex(StaticEnum staticEnum) {
+        return staticEnum.ordinal();
+    }
+
+    @TypeConverter
+    public static StaticEnum staticEnumFromIndex(int index) {
+        return StaticEnum.values()[index];
+    }
+
+    //endregion
+
+    //region Static Model
+
+    @TypeConverter
+    public static long staticModelToId(StaticModel staticModel) {
+        return staticModel.staticId;
+    }
+
+    @TypeConverter
+    public static StaticModel staticModelFromId(long staticId) {
+        return Singleton.db.staticDao().get(staticId);
+    }
+
+    //endregion
+
+    //region Achievement Requests TODO
+
+//    public static List<AchievementRequestModel> achievementRequestsFromQuery(String query) {
+//        List<Long> ids = new ArrayList<Long>();
+//
+//        for (String id : query.split(";")) {
+//            ids.add(Long.parseLong(id));
+//        }
+//
+//
+//    }
+//
+//    public static int achievementRequestFromAchievementId() {
+//        return 0; //TODO ? Üsttündne atlama mantıklı iş değil bu
+//    }
 
     //endregion
 }
