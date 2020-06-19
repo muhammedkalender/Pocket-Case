@@ -1,5 +1,8 @@
 package software.kalender.pocketcase.models;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -9,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.enums.AchievementEnum;
 import software.kalender.pocketcase.enums.CurrencyEnum;
 import software.kalender.pocketcase.helpers.MoneyHelper;
 
@@ -23,6 +27,10 @@ public class AchievementModel {
 
     @ColumnInfo(name = "achievementIcon")
     public String icon;
+
+    @NonNull
+    @ColumnInfo(name = "achievementEnum")
+    public AchievementEnum achievementEnum;
 
     @Ignore
     private AchievementRequestModel[] requests;
@@ -64,21 +72,40 @@ public class AchievementModel {
     @Ignore
     public boolean isCanBeAchieved() {
         //TODO
+        getAchievementRequests();
 
         if (requests == null || requests.length == 0) {
-            return true;
+            Log.e("asda", "boş");
+            return false;
         }
 
         boolean isCanBeAchieved = true;
 
         for (AchievementRequestModel achievementRequest : requests) {
             if (!achievementRequest.isCompleted()) {
+                Log.e("asda", "bitmemiş var");
                 isCanBeAchieved = false;
                 break;
             }
         }
-
+        Log.e("asda", "sonuö " + (isCanBeAchieved));
         return isCanBeAchieved;
+    }
+
+    @Ignore
+    public boolean checkGained() {
+        if (requests == null || requests.length == 0) {
+            Log.e("sada", " boşşş");
+            return false;
+        }
+
+        boolean currentStatus = this.isAchieved;
+        boolean isGainable = isCanBeAchieved();
+
+        Log.e("Mevcutta", currentStatus ? "T" : "F");
+        Log.e("Alabilirmi", isGainable ? "T" : "F");
+
+        return !currentStatus && isGainable;
     }
 
     @ColumnInfo(name = "achievementInsertedAt")

@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 import software.kalender.pocketcase.Singleton;
+import software.kalender.pocketcase.enums.StaticEnum;
 
 @Entity(tableName = "achievementRequests")
 public class AchievementRequestModel {

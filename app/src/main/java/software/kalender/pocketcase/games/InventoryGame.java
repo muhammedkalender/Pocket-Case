@@ -11,10 +11,11 @@ import androidx.annotation.NonNull;
 import software.kalender.pocketcase.R;
 import software.kalender.pocketcase.abstracts.GameAbstract;
 import software.kalender.pocketcase.components.InventoryComponent;
+import software.kalender.pocketcase.enums.AchievementEnum;
 
 public class InventoryGame extends GameAbstract {
-    public InventoryGame(@NonNull Context context) {
-        super(context);
+    public InventoryGame(@NonNull Context context, @NonNull AchievementEnum[] achievementEnums) {
+        super(context, achievementEnums);
     }
 
     @Override

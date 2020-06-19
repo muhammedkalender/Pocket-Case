@@ -7,6 +7,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.room.Room;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -17,6 +18,7 @@ import java.util.Random;
 import software.kalender.pocketcase.abstracts.GameAbstract;
 import software.kalender.pocketcase.chances.ItemQualityChance;
 import software.kalender.pocketcase.database.AppDatabase;
+import software.kalender.pocketcase.enums.AchievementEnum;
 import software.kalender.pocketcase.enums.CaseSpecialEnum;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
@@ -44,6 +46,8 @@ import software.kalender.pocketcase.models.StaticModel;
 import software.kalender.pocketcase.models.UserModel;
 
 public class MainActivity extends AppCompatActivity {
+
+    private GameAbstract currentGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,44 +80,36 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnInventory).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AchievementEnum[] achievementEnums = new AchievementEnum[]{
+                        AchievementEnum.CASE_OPEN
+                };
+
                 ((RelativeLayout) findViewById(R.id.sceneMain)).removeAllViews();
 
-                CaseOpeningGame caseOpeningGame = new CaseOpeningGame(MainActivity.this);
+                CaseOpeningGame caseOpeningGame = new CaseOpeningGame(MainActivity.this, achievementEnums);
                 ((RelativeLayout) findViewById(R.id.sceneMain)).addView(caseOpeningGame.getView());
 
+                currentGame = caseOpeningGame;
             }
         });
 
         findViewById(R.id.btnCase).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AchievementEnum[] achievementEnums = new AchievementEnum[]{
+                        AchievementEnum.CASE_OPEN
+                };
+
                 ((RelativeLayout) findViewById(R.id.sceneMain)).removeAllViews();
 
-                InventoryGame inventoryGame = new InventoryGame(MainActivity.this);
+                InventoryGame inventoryGame = new InventoryGame(MainActivity.this, achievementEnums);
                 ((RelativeLayout) findViewById(R.id.sceneMain)).addView(inventoryGame.getView());
+
+                currentGame = inventoryGame;
 
             }
         });
 
-        Object a = Singleton.db.inventoryItemDao().listFromStattrakWithPagination(false, 100, 0);
-        Object b = Singleton.db.inventoryItemDao().listFromStattrakWithPagination(true, 100, 0);
-        Object c = Singleton.db.inventoryItemDao().listFromStattrakAndColorWithPagination(false, ColorEnum.MYTHICAL, 100, 0);
-
-        int d = Singleton.db.inventoryItemDao().count();
-        int e = Singleton.db.inventoryItemDao().countFromStattrak(false);
-        int f = Singleton.db.inventoryItemDao().countFromStattrak(true);
-
-        List<StaticModel> staticModels = Singleton.db.staticDao().list();
-        List<AchievementModel> achievementModels = Singleton.db.achievementDao().list();
-        List<AchievementRequestModel> achievementRequestModels = Singleton.db.achievementRequestDao().list();
-        AchievementRequestModel[] achievementRequestModels1 = achievementModels.get(0).getAchievementRequests();
-        AchievementRequestModel[] achievementRequestModels2 = achievementModels.get(1).getAchievementRequests();
-
-        AchievementModel achievementModel = achievementModels.get(0);
-        AchievementRequestModel request = achievementModel.getAchievementRequests()[0];
-        boolean status = request.isCompleted();
-
-       // request.requestStatic.increment(1500); //TODO
 
 
         // CaseSelectingComponent caseSelectingComponent = new CaseSelectingComponent(this);
@@ -220,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //TODO Her girişte update olmalı
         for (StaticEnum staticEnum : StaticEnum.values()) {
             StaticModel staticModel = new StaticModel();
             staticModel.staticEnum = staticEnum;
@@ -230,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
             achievementModel.nameCode = "CODE_TODO";
             achievementModel.prizeMoney = new MoneyHelper(CurrencyEnum.USD, 150L);
             achievementModel.prizeXP = 50;
+            achievementModel.achievementEnum = AchievementEnum.CASE_OPEN;
             achievementModel.insert();
 
             AchievementRequestModel achievementRequestModel1 = new AchievementRequestModel();
@@ -250,5 +248,27 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+    @Override
+    public void onBackPressed() {
+        List<StaticModel> staticModels = Singleton.db.staticDao().list();
+        List<AchievementModel> achievementModels = Singleton.db.achievementDao().list();
+        List<AchievementRequestModel> achievementRequestModels = Singleton.db.achievementRequestDao().list();
+        AchievementRequestModel[] achievementRequestModels1 = achievementModels.get(0).getAchievementRequests();
+        AchievementRequestModel[] achievementRequestModels2 = achievementModels.get(1).getAchievementRequests();
+
+        AchievementModel achievementModel = achievementModels.get(0);
+        AchievementRequestModel request = achievementModel.getAchievementRequests()[0];
+        boolean status = request.isCompleted();
+        Log.e("ffffzz", currentGame.completeAchievement() ? "false" : "true");
+        currentGame.completeAchievement();
+        Log.e("gvz", currentGame.completeAchievement() ? "false" : "true");
+        Log.e("asda", "geldi");
+        request.requestStatic.increment(1500); //TODO
+
+        Log.e("zz", currentGame.completeAchievement() ? "false" : "true");
+
+     //   super.onBackPressed();
+    }
 }
 

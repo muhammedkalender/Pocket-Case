@@ -11,6 +11,7 @@ import java.util.List;
 
 import software.kalender.pocketcase.Singleton;
 import software.kalender.pocketcase.chances.ItemQualityChance;
+import software.kalender.pocketcase.enums.AchievementEnum;
 import software.kalender.pocketcase.enums.CaseSpecialEnum;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.enums.ColorEnum;
@@ -323,21 +324,17 @@ public class Converters {
 
     //endregion
 
-    //region Achievement Requests TODO
+    //region Achievement Enum
 
-//    public static List<AchievementRequestModel> achievementRequestsFromQuery(String query) {
-//        List<Long> ids = new ArrayList<Long>();
-//
-//        for (String id : query.split(";")) {
-//            ids.add(Long.parseLong(id));
-//        }
-//
-//
-//    }
-//
-//    public static int achievementRequestFromAchievementId() {
-//        return 0; //TODO ? Üsttündne atlama mantıklı iş değil bu
-//    }
+    @TypeConverter
+    public static int achievementEnumToIndex(AchievementEnum achievementEnum) {
+        return achievementEnum.ordinal();
+    }
+
+    @TypeConverter
+    public static AchievementEnum achievementEnumFromIndex(int index) {
+        return AchievementEnum.values()[index];
+    }
 
     //endregion
 }

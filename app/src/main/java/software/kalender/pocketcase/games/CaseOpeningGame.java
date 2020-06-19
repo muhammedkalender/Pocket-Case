@@ -17,8 +17,10 @@ import software.kalender.pocketcase.components.CaseOpeningScrollComponent;
 import software.kalender.pocketcase.components.CaseSelectingComponent;
 import software.kalender.pocketcase.components.WinItemComponent;
 import software.kalender.pocketcase.constants.GameConstant;
+import software.kalender.pocketcase.enums.AchievementEnum;
 import software.kalender.pocketcase.enums.CaseTypeEnum;
 import software.kalender.pocketcase.helpers.ViewHelper;
+import software.kalender.pocketcase.models.AchievementModel;
 import software.kalender.pocketcase.models.CaseModel;
 import software.kalender.pocketcase.models.ItemQualityModel;
 import software.kalender.pocketcase.models.ItemSkinModel;
@@ -27,8 +29,8 @@ public class CaseOpeningGame extends GameAbstract {
     //TODO
     private CaseModel currentCase;
 
-    public CaseOpeningGame(@NonNull Context context) {
-        super(context);
+    public CaseOpeningGame(@NonNull Context context, AchievementEnum[] achievementEnums) {
+        super(context, achievementEnums);
     }
 
     @Override
@@ -105,7 +107,7 @@ public class CaseOpeningGame extends GameAbstract {
                         View winItemComponentView = winItemComponent.getView();
                         winItemComponent.loadItemQuality(itemQualityModel);
                         winItemComponentView.setForegroundGravity(Gravity.CENTER);
-                        ((RelativeLayout)CaseOpeningGame.super.view).addView(winItemComponentView);
+                        ((RelativeLayout) CaseOpeningGame.super.view).addView(winItemComponentView);
                     }
                 });
                 caseOpeningScrollComponent.addToScroll(itemSkinModels);
